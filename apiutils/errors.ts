@@ -1,6 +1,6 @@
 import {getReasonPhrase, StatusCodes} from "http-status-codes";
-import {APIResponse, json} from "./response";
 import express from "express";
+import {APIResponse, json} from "./messages";
 
 export class BaseAPIError extends Error {
     code: number;
