@@ -1,0 +1,22 @@
+{
+  "name": "groupo-shared-service",
+  "version": "1.0.0",
+  "description": "use across repositories",
+  "main": "src/index.ts",
+  "repository": "https://github.com/2110521-2564-1-SW-ARCH/Groupo-shared-services",
+  "author": "wongtawan-j <work@wongtawan.dev>",
+  "license": "MIT",
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1",
+    "tslint": "^6.1.3"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^8.5.5",
+    "prettier": "^2.4.1",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.4.3"
+  },
+  "scripts": {
+    "build": "tsc --declaration"
+  }
+}
