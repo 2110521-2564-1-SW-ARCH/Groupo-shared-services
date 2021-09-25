@@ -8,7 +8,7 @@
     "noImplicitAny": true,
     "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "dist",
+    "outDir": "lib",
     "baseUrl": ".",
     "paths": {
       "*": [
@@ -16,7 +16,4 @@
       ]
     },
   },
-  "include": [
-    "*"
-  ]
 }
