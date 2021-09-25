@@ -23,7 +23,7 @@ export interface RefreshRequest {
     refreshToken: string;
 }
 
-export interface Register {
+export interface RegisterRequest {
     displayName: string;
     firstName: string;
     lastName: string;
