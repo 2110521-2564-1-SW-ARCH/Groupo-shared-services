@@ -1,1 +1,3 @@
-export {Token} from "./service/Authenticationservice.service";
+export * from "./interfaces/api.interface";
+export * from "./error/instance";
+export * from "./services/Authenticationservice.service";
