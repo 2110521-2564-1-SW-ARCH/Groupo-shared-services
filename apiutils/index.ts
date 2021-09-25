@@ -1,5 +1,5 @@
 import * as Error from "./errors";
-import * as Response from "./response";
+import * as Messages from "./messages";
 
-const APIUtils = {Error, Response};
+const APIUtils = {Error, Messages};
 export default APIUtils;
