@@ -2,7 +2,7 @@
   "name": "groupo-shared-service",
   "version": "1.0.0",
   "description": "use across repositories",
-  "main": "src/index.ts",
+  "main": ".",
   "repository": "https://github.com/2110521-2564-1-SW-ARCH/Groupo-shared-services",
   "author": "wongtawan-j <work@wongtawan.dev>",
   "license": "MIT",
