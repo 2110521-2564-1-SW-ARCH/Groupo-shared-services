@@ -1,3 +1,2 @@
-export * from "./interfaces/api.interface";
-export * from "./error/instance";
-export * from "./services/Authenticationservice.service";
+export * from "./services";
+export * from "./apiutils";

@@ -1,7 +1,7 @@
 import {getReasonPhrase, StatusCodes} from "http-status-codes";
-import {APIResponse} from "../interfaces/api.interface";
+import {APIResponse} from "./response";
 
-export class APIError extends Error {
+export class BaseAPIError extends Error {
     code: number;
 
     constructor(code: number, message?: string) {
@@ -22,19 +22,19 @@ export class APIError extends Error {
     }
 }
 
-export class InternalServerError extends APIError {
+export class InternalServerError extends BaseAPIError {
     constructor(message?: string) {
         super(StatusCodes.INTERNAL_SERVER_ERROR, message);
     }
 }
 
-export class UnauthorizedError extends APIError {
+export class UnauthorizedError extends BaseAPIError {
     constructor(message?: string) {
         super(StatusCodes.UNAUTHORIZED, message);
     }
 }
 
-export class NotFoundError extends APIError {
+export class NotFoundError extends BaseAPIError {
     constructor(message?: string) {
         super(StatusCodes.NOT_FOUND, message);
     }
