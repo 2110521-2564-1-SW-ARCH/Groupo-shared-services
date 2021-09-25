@@ -51,3 +51,13 @@ export const handler: express.ErrorRequestHandler = (err: any, req: express.Requ
             json(res, new InternalServerError().response());
     }
 }
+
+export const catcher = (handler: express.Handler): express.Handler => {
+    return async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        try {
+            await handler(req, res, next);
+        } catch (err) {
+            next(err);
+        }
+    }
+}
