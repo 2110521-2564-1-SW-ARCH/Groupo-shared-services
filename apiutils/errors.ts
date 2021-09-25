@@ -1,5 +1,6 @@
 import {getReasonPhrase, StatusCodes} from "http-status-codes";
-import {APIResponse} from "./response";
+import {APIResponse, json} from "./response";
+import express from "express";
 
 export class BaseAPIError extends Error {
     code: number;
@@ -37,5 +38,16 @@ export class UnauthorizedError extends BaseAPIError {
 export class NotFoundError extends BaseAPIError {
     constructor(message?: string) {
         super(StatusCodes.NOT_FOUND, message);
+    }
+}
+
+export const handler: express.ErrorRequestHandler = (err: any, req: express.Request, res: express.Response, next) => {
+    switch (true) {
+        case err instanceof BaseAPIError:
+            json(res, err.response());
+            break;
+        default:
+            console.log("internal server error:", err.message);
+            json(res, new InternalServerError().response());
     }
 }
