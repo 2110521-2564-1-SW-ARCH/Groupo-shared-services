@@ -17,12 +17,14 @@ export interface Token extends JwtPayload {
 export class AuthenticationService {
     private secret: string = process.env.JWT_SECRET;
 
-    generateAccessToken(token: Token): string {
-        return sign(token, this.secret, {expiresIn: "1h"});
+    generateAccessToken(email: string): string {
+        const payload: Token = {email, type: "ACCESS_TOKEN"};
+        return sign(payload, this.secret, {expiresIn: "1h"});
     }
 
-    generateRefreshToken(token: Token): string {
-        return sign(token, this.secret);
+    generateRefreshToken(email: string): string {
+        const payload: Token = {email, type: "REFRESH_TOKEN"};
+        return sign(payload, this.secret);
     }
 
     verify(token: string): Token {
