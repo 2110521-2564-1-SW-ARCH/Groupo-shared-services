@@ -3,10 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.initMySQLConnection = void 0;
 const typeorm_1 = require("typeorm");
 const logger_1 = require("../logging/logger");
-(0, logger_1.registerApplicationLogger)("common-service");
 const initMySQLConnection = (modelPath) => {
     const lg = logger_1.logger.field("host", process.env.MYSQL_HOST).field("user", process.env.MYSQL_USER);
-    lg.info("initiate mysql connection...");
+    lg.info("initiate mysql connection");
     (0, typeorm_1.createConnection)({
         type: "mysql",
         host: process.env.MYSQL_HOST,
