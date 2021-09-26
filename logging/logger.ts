@@ -61,20 +61,20 @@ export class ApplicationLogger {
     message(s: string, level: LogLevel) {
         const t = new Date();
 
-        this.initLogString(t.toLocaleDateString());
+        this.initLogString(`[${t.toDateString()}] [${t.toTimeString()}]`);
 
         switch (level) {
             case "INFO":
-                this.appendLogString("INFO", colors.green);
+                this.appendLogString("[INFO]", colors.green);
                 break;
             case "DEBUG":
-                this.appendLogString("INFO", colors.blue);
+                this.appendLogString("[DEBUG]", colors.blue);
                 break;
             case "WARN":
-                this.appendLogString("INFO", colors.yellow);
+                this.appendLogString("[WARN]", colors.yellow);
                 break;
             case "ERROR":
-                this.appendLogString("INFO", colors.red);
+                this.appendLogString("[ERROR]", colors.red);
                 break;
         }
 
@@ -83,7 +83,7 @@ export class ApplicationLogger {
         }
 
         for (const k of Object.keys(this.fields)) {
-            this.appendLogString(`\t${k}=${this.fields[k]}`);
+            this.appendLogString(`${colors.cyan}${k}${colors.reset}=${colors.cyan}${this.fields[k]}${colors.reset}`);
         }
 
         console.log(this.logString);
