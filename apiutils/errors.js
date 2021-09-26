@@ -53,10 +53,11 @@ exports.NotFoundError = NotFoundError;
 const handler = (err, req, res, next) => {
     switch (true) {
         case err instanceof BaseAPIError:
+            logger_1.logger.field("error", err).error("api error");
             (0, messages_1.json)(res, err.response());
             break;
         default:
-            logger_1.logger.field("error", err.message).error("internal server error");
+            logger_1.logger.field("error", err).error("internal server error");
             (0, messages_1.json)(res, new InternalServerError().response());
     }
 };

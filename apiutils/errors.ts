@@ -45,10 +45,11 @@ export class NotFoundError extends BaseAPIError {
 export const handler: express.ErrorRequestHandler = (err: any, req: express.Request, res: express.Response, next) => {
     switch (true) {
         case err instanceof BaseAPIError:
+            logger.field("error", err).error("api error");
             json(res, err.response());
             break;
         default:
-            logger.field("error", err.message).error("internal server error")
+            logger.field("error", err).error("internal server error");
             json(res, new InternalServerError().response());
     }
 }
