@@ -22,6 +22,6 @@
     "typescript": "^4.4.3"
   },
   "scripts": {
-    "build": "tsc --declaration"
+    "build": "tsc --declaration && git add . && git commit -am 'update common services' && git push"
   }
 }

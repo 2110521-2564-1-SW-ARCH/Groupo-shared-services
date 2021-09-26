@@ -44,3 +44,9 @@ export interface UpdateProfileRequest {
     firstName: string;
     lastName: string;
 }
+
+export interface CreateBoardRequest {
+    name: string;
+    totalGroup: number;
+    tags: Record<string, string[]>
+}
