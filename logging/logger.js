@@ -1,6 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.registerApplicationLogger = exports.logger = exports.ApplicationLogger = void 0;
+const dayjs_1 = __importDefault(require("dayjs"));
 const colors = {
     reset: "\x1b[0m",
     // colors
@@ -64,8 +68,9 @@ class ApplicationLogger {
         this.message(s, "ERROR");
     }
     message(s, level) {
-        const t = new Date();
-        this.initLogString(`[${t.toDateString()}] [${t.toTimeString()}]`);
+        const t = (0, dayjs_1.default)();
+        this.initLogString(t.format("[YYYY-MM-DD HH:mm:ss Z]"));
+        this.appendLogString(`[${this._service}]`);
         switch (level) {
             case "INFO":
                 this.appendLogString("[INFO]", colors.green);

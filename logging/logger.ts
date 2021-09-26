@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 const colors = {
     reset: "\x1b[0m",
 
@@ -72,9 +74,10 @@ export class ApplicationLogger {
     }
 
     message(s: string, level: LogLevel) {
-        const t = new Date();
+        const t = dayjs();
 
-        this.initLogString(`[${t.toDateString()}] [${t.toTimeString()}]`);
+        this.initLogString(t.format("[YYYY-MM-DD HH:mm:ss Z]"));
+        this.appendLogString(`[${this._service}]`)
 
         switch (level) {
             case "INFO":
