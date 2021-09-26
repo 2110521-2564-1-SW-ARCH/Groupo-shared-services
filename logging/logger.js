@@ -80,7 +80,7 @@ class ApplicationLogger {
     clone() {
         const l = new ApplicationLogger();
         l.traceID = this.traceID;
-        l.fields = Object.assign({}, l.fields);
+        l.fields = Object.assign({}, this.fields);
         return l;
     }
 }

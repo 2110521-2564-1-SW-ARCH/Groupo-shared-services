@@ -93,7 +93,7 @@ export class ApplicationLogger {
     clone(): ApplicationLogger {
         const l = new ApplicationLogger();
         l.traceID = this.traceID;
-        l.fields = {...l.fields};
+        l.fields = {...this.fields};
         return l;
     }
 }
