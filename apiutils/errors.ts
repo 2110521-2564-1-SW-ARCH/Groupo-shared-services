@@ -1,6 +1,7 @@
 import {getReasonPhrase, StatusCodes} from "http-status-codes";
 import express from "express";
 import {APIResponse, json} from "./messages";
+import {logger} from "../logging/logger";
 
 export class BaseAPIError extends Error {
     code: number;
@@ -47,7 +48,7 @@ export const handler: express.ErrorRequestHandler = (err: any, req: express.Requ
             json(res, err.response());
             break;
         default:
-            console.log("internal server error:", err.message);
+            logger.field("error", err.message).error("internal server error")
             json(res, new InternalServerError().response());
     }
 }

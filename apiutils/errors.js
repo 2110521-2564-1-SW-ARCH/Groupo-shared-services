@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.catcher = exports.handler = exports.NotFoundError = exports.UnauthorizedError = exports.InternalServerError = exports.BaseAPIError = void 0;
 const http_status_codes_1 = require("http-status-codes");
 const messages_1 = require("./messages");
+const logger_1 = require("../logging/logger");
 class BaseAPIError extends Error {
     constructor(code, message) {
         super();
@@ -55,7 +56,7 @@ const handler = (err, req, res, next) => {
             (0, messages_1.json)(res, err.response());
             break;
         default:
-            console.log("internal server error:", err.message);
+            logger_1.logger.field("error", err.message).error("internal server error");
             (0, messages_1.json)(res, new InternalServerError().response());
     }
 };
