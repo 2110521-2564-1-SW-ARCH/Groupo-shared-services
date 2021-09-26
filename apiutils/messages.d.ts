@@ -42,6 +42,7 @@ export interface BoardInvitationRequest {
 export interface BoardResponse {
     name: string;
     totalGroup: number;
+    totalMember: number;
     members: string[];
     isAssign: boolean;
     owner: string;
