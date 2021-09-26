@@ -27,3 +27,7 @@ export interface ProfileResponse {
     firstName: string;
     lastName: string;
 }
+export interface UpdateProfileRequest {
+    firstName: string;
+    lastName: string;
+}
