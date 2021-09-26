@@ -6,6 +6,37 @@
 
 `yarn add https://github.com/2110521-2564-1-SW-ARCH/Groupo-shared-services.git`
 
+### Logging (backend)
+
+logger can log with 4 levels (info, debug, warn, error)
+
+```typescript
+import {ApplicationLogger} from "groupo-shared-services/logging/logger";
+
+const logger = new ApplicationLogger();
+
+// log with info level
+logger.info("message");
+
+// log with debug level
+logger.debug("message");
+
+// log with warn level
+logger.warn("message");
+
+// log with error level
+logger.error("message");
+```
+
+use custom fields for logger
+```typescript
+// this will display `message   key=value` on the console
+logger.field("key", "value").info("message")
+
+// this will display `message   key1=value1   key2=value2 on the console
+logger.field("key1", "value1").field("key2", "value2").info("message")
+```
+
 ### Services (backend)
 
 - Authentication Service
