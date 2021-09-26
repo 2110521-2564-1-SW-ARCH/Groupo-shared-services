@@ -37,7 +37,7 @@ export interface CreateBoardRequest {
     tags: Record<string, string[]>;
 }
 export interface BoardInvitationRequest {
-    member: string[];
+    members: string[];
 }
 export interface BoardResponse {
     name: string;

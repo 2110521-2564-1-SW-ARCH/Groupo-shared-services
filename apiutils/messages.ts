@@ -52,7 +52,7 @@ export interface CreateBoardRequest {
 }
 
 export interface BoardInvitationRequest {
-    member: string[];
+    members: string[];
 }
 
 export interface BoardResponse {
