@@ -53,7 +53,7 @@ export const handler: express.ErrorRequestHandler = (err: any, req: express.Requ
     }
 }
 
-export const Catcher = (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<express.Handler>): TypedPropertyDescriptor<express.Handler> => {
+export const catcher = (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<express.Handler>) => {
     const handler = descriptor.value;
     descriptor.value = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         try {
@@ -62,5 +62,4 @@ export const Catcher = (target: Object, propertyKey: string, descriptor: TypedPr
             next(err);
         }
     };
-    return descriptor;
 }
