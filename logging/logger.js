@@ -73,7 +73,7 @@ class ApplicationLogger {
             this.appendLogString(s);
         }
         for (const k of Object.keys(this.fields)) {
-            this.appendLogString(`${colors.cyan}${k}${colors.reset}=${colors.cyan}${this.fields[k]}${colors.reset}`);
+            this.appendLogString(`  ${colors.cyan}${k}${colors.reset}=${colors.cyan}${this.fields[k]}${colors.reset}`);
         }
         console.log(this.logString);
     }
