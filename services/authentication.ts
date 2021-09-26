@@ -43,7 +43,7 @@ export const verifyToken = (token: string): Token => {
 export const verifyAuthorizationHeader = (req: express.Request): Token => {
     const bearer = req.header("Authorization");
     if (!bearer || bearer.startsWith("Bearer ")) {
-        throw new UnauthorizedError();
+        throw new UnauthorizedError("token is undefined or not bearer token");
     }
     return verifyToken(bearer.split("Bearer ")[1]);
 }
