@@ -11,4 +11,5 @@ export interface Token extends JwtPayload {
 }
 export declare const generateAccessToken: (email: string) => string;
 export declare const generateRefreshToken: (email: string) => string;
-export declare const verifyToken: (req: express.Request) => Token;
+export declare const verifyToken: (token: string) => Token;
+export declare const verifyAuthorizationHeader: (req: express.Request) => Token;

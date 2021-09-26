@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifyToken = exports.generateRefreshToken = exports.generateAccessToken = exports.AccessTokenExpiredError = void 0;
+exports.verifyAuthorizationHeader = exports.verifyToken = exports.generateRefreshToken = exports.generateAccessToken = exports.AccessTokenExpiredError = void 0;
 const jsonwebtoken_1 = require("jsonwebtoken");
 const errors_1 = require("../apiutils/errors");
 class AccessTokenExpiredError extends errors_1.UnauthorizedError {
@@ -19,12 +19,7 @@ const generateRefreshToken = (email) => {
     return (0, jsonwebtoken_1.sign)(payload, process.env.JWT_SECRET);
 };
 exports.generateRefreshToken = generateRefreshToken;
-const verifyToken = (req) => {
-    const bearer = req.header("Authorization");
-    if (!bearer || bearer.startsWith("Bearer ")) {
-        throw new errors_1.UnauthorizedError();
-    }
-    const token = bearer.split("Bearer ")[1];
+const verifyToken = (token) => {
     try {
         const decoded = (0, jsonwebtoken_1.verify)(token, process.env.JWT_SECRET);
         if (typeof decoded === "string") {
@@ -40,4 +35,12 @@ const verifyToken = (req) => {
     }
 };
 exports.verifyToken = verifyToken;
+const verifyAuthorizationHeader = (req) => {
+    const bearer = req.header("Authorization");
+    if (!bearer || bearer.startsWith("Bearer ")) {
+        throw new errors_1.UnauthorizedError();
+    }
+    return (0, exports.verifyToken)(bearer.split("Bearer ")[1]);
+};
+exports.verifyAuthorizationHeader = verifyAuthorizationHeader;
 //# sourceMappingURL=authentication.js.map

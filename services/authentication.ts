@@ -25,13 +25,7 @@ export const generateRefreshToken = (email: string): string => {
     return sign(payload, process.env.JWT_SECRET);
 }
 
-export const verifyToken = (req: express.Request): Token => {
-    const bearer = req.header("Authorization");
-    if (!bearer || bearer.startsWith("Bearer ")) {
-        throw new UnauthorizedError();
-    }
-    const token =  bearer.split("Bearer ")[1];
-
+export const verifyToken = (token: string): Token => {
     try {
         const decoded = verify(token, process.env.JWT_SECRET);
         if (typeof decoded === "string") {
@@ -44,4 +38,12 @@ export const verifyToken = (req: express.Request): Token => {
         }
         throw e;
     }
+}
+
+export const verifyAuthorizationHeader = (req: express.Request): Token => {
+    const bearer = req.header("Authorization");
+    if (!bearer || bearer.startsWith("Bearer ")) {
+        throw new UnauthorizedError();
+    }
+    return verifyToken(bearer.split("Bearer ")[1]);
 }

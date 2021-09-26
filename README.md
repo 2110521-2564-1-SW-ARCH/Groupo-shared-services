@@ -42,7 +42,12 @@ logger.field("key1", "value1").field("key2", "value2").info("message")
 - Authentication Service
 
 ```typescript
-import {generateAccessToken, generateRefreshToken, verifyToken} from "groupo-shared-services/services/authentication";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+  verifyToken,
+  verifyAuthorizationHeader
+} from "groupo-shared-services/services/authentication";
 
 // only user service will use this function
 // generate access token with specific email (normally token will expire after 1h)
@@ -53,7 +58,10 @@ const accessToken = generateAccessToken("me@wongtawan.dev");
 const refreshToken = generateRefreshToken("me@wongtawan.dev");
 
 // this function will throw UnauthorizedError if it's not valid
-verifyToken: (req: express.Request) => Token;
+verifyToken: (token: token) => Token;
+
+// this function with throw UnauthroizedError if authorization header is not valid
+verifyAuthorizationHeader: (req: express.Request): Token;
 ```
 
 ### Error Handling (backend)
