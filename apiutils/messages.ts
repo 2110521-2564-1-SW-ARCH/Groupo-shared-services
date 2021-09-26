@@ -50,3 +50,10 @@ export interface CreateBoardRequest {
     totalGroup: number;
     tags: Record<string, string[]>
 }
+
+export interface BoardResponse {
+    name: string;
+    totalGroup: number;
+    members: string[];
+    isAssign: boolean;
+}
