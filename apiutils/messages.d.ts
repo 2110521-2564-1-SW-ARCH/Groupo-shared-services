@@ -3,6 +3,7 @@ export interface APIResponse<T> {
     status: number;
     body: T;
 }
+export declare const newAPIResponse: <T>(status: number, body: T) => APIResponse<T>;
 export declare const json: <T>(res: express.Response, response: APIResponse<T>) => void;
 export interface LoginResponse {
     accessToken: string;
@@ -20,4 +21,9 @@ export interface RegisterRequest {
     lastName: string;
     email: string;
     password: string;
+}
+export interface ProfileResponse {
+    email: string;
+    firstName: string;
+    lastName: string;
 }

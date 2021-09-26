@@ -5,6 +5,10 @@ export interface APIResponse<T> {
     body: T;
 }
 
+export const newAPIResponse = <T>(status: number, body: T): APIResponse<T> => {
+    return {status, body}
+}
+
 export const json = <T>(res: express.Response, response: APIResponse<T>) => {
     res.status(response.status).json(response);
 }
@@ -28,4 +32,10 @@ export interface RegisterRequest {
     lastName: string;
     email: string;
     password: string;
+}
+
+export interface ProfileResponse {
+    email: string;
+    firstName: string;
+    lastName: string;
 }
