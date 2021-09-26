@@ -37,7 +37,7 @@ const verifyToken = (token) => {
 exports.verifyToken = verifyToken;
 const verifyAuthorizationHeader = (req) => {
     const bearer = req.header("Authorization");
-    if (!bearer || bearer.startsWith("Bearer")) {
+    if (!bearer || !bearer.startsWith("Bearer")) {
         throw new errors_1.UnauthorizedError("token is undefined or not bearer token");
     }
     return (0, exports.verifyToken)(bearer.split("Bearer")[1]);
