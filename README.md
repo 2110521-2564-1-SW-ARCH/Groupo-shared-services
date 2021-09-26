@@ -53,7 +53,7 @@ const accessToken = generateAccessToken("me@wongtawan.dev");
 const refreshToken = generateRefreshToken("me@wongtawan.dev");
 
 // this function will throw UnauthorizedError if it's not valid
-verifyToken: (token: string) => Token;
+verifyToken: (req: express.Request) => Token;
 ```
 
 ### Error Handling (backend)

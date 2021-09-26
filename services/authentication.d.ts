@@ -1,5 +1,6 @@
 import { JwtPayload } from "jsonwebtoken";
 import { UnauthorizedError } from "../apiutils/errors";
+import express from "express";
 export declare class AccessTokenExpiredError extends UnauthorizedError {
     constructor();
 }
@@ -10,4 +11,4 @@ export interface Token extends JwtPayload {
 }
 export declare const generateAccessToken: (email: string) => string;
 export declare const generateRefreshToken: (email: string) => string;
-export declare const verifyToken: (token: string) => Token;
+export declare const verifyToken: (req: express.Request) => Token;

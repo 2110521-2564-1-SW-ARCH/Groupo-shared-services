@@ -19,7 +19,12 @@ const generateRefreshToken = (email) => {
     return (0, jsonwebtoken_1.sign)(payload, process.env.JWT_SECRET);
 };
 exports.generateRefreshToken = generateRefreshToken;
-const verifyToken = (token) => {
+const verifyToken = (req) => {
+    const bearer = req.header("Authorization");
+    if (!bearer || bearer.startsWith("Bearer ")) {
+        throw new errors_1.UnauthorizedError();
+    }
+    const token = bearer.split("Bearer ")[1];
     try {
         const decoded = (0, jsonwebtoken_1.verify)(token, process.env.JWT_SECRET);
         if (typeof decoded === "string") {
