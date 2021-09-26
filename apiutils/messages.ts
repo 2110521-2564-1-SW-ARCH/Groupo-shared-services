@@ -24,7 +24,6 @@ export interface RefreshRequest {
 }
 
 export interface RegisterRequest {
-    displayName: string;
     firstName: string;
     lastName: string;
     email: string;

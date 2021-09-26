@@ -15,4 +15,5 @@ export declare class NotFoundError extends BaseAPIError {
     constructor(message?: string);
 }
 export declare const handler: express.ErrorRequestHandler;
+export declare const Catcher: MethodDecorator;
 export declare const catcher: (handler: express.Handler) => express.Handler;

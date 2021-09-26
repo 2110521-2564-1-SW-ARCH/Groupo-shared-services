@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.catcher = exports.handler = exports.NotFoundError = exports.UnauthorizedError = exports.InternalServerError = exports.BaseAPIError = void 0;
+exports.catcher = exports.Catcher = exports.handler = exports.NotFoundError = exports.UnauthorizedError = exports.InternalServerError = exports.BaseAPIError = void 0;
 const http_status_codes_1 = require("http-status-codes");
 const messages_1 = require("./messages");
 const logger_1 = require("../logging/logger");
@@ -61,6 +61,9 @@ const handler = (err, req, res, next) => {
     }
 };
 exports.handler = handler;
+const Catcher = () => {
+};
+exports.Catcher = Catcher;
 const catcher = (handler) => {
     return (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         try {
