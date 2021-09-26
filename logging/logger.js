@@ -15,47 +15,16 @@ const colors = {
 };
 class ApplicationLogger {
     constructor() {
-        this.level = "INFO";
         this.traceID = "";
-        this._message = "";
         this.fields = {};
         this.logString = "";
-    }
-    static Info(traceID) {
-        const l = new ApplicationLogger();
-        l.level = "INFO";
-        l.traceID = traceID;
-        return l;
-    }
-    static Debug(traceID) {
-        const l = new ApplicationLogger();
-        l.level = "DEBUG";
-        l.traceID = traceID;
-        return l;
-    }
-    static Warn(traceID) {
-        const l = new ApplicationLogger();
-        l.level = "WARN";
-        l.traceID = traceID;
-        return l;
-    }
-    static Error(traceID) {
-        const l = new ApplicationLogger();
-        l.level = "ERROR";
-        l.traceID = traceID;
-        return l;
-    }
-    message(s) {
-        const l = this.clone();
-        l._message = s;
-        return this;
     }
     field(key, value) {
         const l = this.clone();
         l.fields[key] = value;
         return l;
     }
-    clearLogString(s, color) {
+    initLogString(s, color) {
         if (color) {
             this.logString = `${color}${s}${colors.reset}`;
         }
@@ -71,10 +40,22 @@ class ApplicationLogger {
             this.logString += ` ${s}`;
         }
     }
-    log() {
+    info(s) {
+        this.message(s, "INFO");
+    }
+    debug(s) {
+        this.message(s, "DEBUG");
+    }
+    warn(s) {
+        this.message(s, "WARN");
+    }
+    error(s) {
+        this.message(s, "ERROR");
+    }
+    message(s, level) {
         const t = new Date();
-        this.clearLogString(t.toLocaleDateString());
-        switch (this.level) {
+        this.initLogString(t.toLocaleDateString());
+        switch (level) {
             case "INFO":
                 this.appendLogString("INFO", colors.green);
                 break;
@@ -88,8 +69,8 @@ class ApplicationLogger {
                 this.appendLogString("INFO", colors.red);
                 break;
         }
-        if (this._message) {
-            this.appendLogString(this._message);
+        if (s) {
+            this.appendLogString(s);
         }
         for (const k of Object.keys(this.fields)) {
             this.appendLogString(`\t${k}=${this.fields[k]}`);
@@ -98,9 +79,8 @@ class ApplicationLogger {
     }
     clone() {
         const l = new ApplicationLogger();
-        l.level = this.level;
         l.traceID = this.traceID;
-        l._message = this._message;
+        l.fields = Object.assign({}, l.fields);
         return l;
     }
 }

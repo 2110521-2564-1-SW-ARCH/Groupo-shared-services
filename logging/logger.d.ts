@@ -1,17 +1,16 @@
+declare type LogLevel = "INFO" | "DEBUG" | "WARN" | "ERROR";
 export declare class ApplicationLogger {
-    private level;
     private traceID;
-    private _message;
     private fields;
     private logString;
-    static Info(traceID: string): ApplicationLogger;
-    static Debug(traceID: string): ApplicationLogger;
-    static Warn(traceID: string): ApplicationLogger;
-    static Error(traceID: string): ApplicationLogger;
-    message(s: string): ApplicationLogger;
     field(key: string, value: string): ApplicationLogger;
-    private clearLogString;
+    private initLogString;
     private appendLogString;
-    log(): void;
+    info(s: string): void;
+    debug(s: string): void;
+    warn(s: string): void;
+    error(s: string): void;
+    message(s: string, level: LogLevel): void;
     clone(): ApplicationLogger;
 }
+export {};
