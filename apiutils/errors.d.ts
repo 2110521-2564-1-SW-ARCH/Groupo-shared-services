@@ -15,4 +15,4 @@ export declare class NotFoundError extends BaseAPIError {
     constructor(message?: string);
 }
 export declare const handler: express.ErrorRequestHandler;
-export declare const catcher: (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<express.Handler>) => void;
+export declare const catcher: (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) => void;
