@@ -74,7 +74,7 @@ export class ApplicationLogger {
     message(s: string, level: LogLevel) {
         const d = dayjs();
 
-        this.initLogString(d.format("[YYYY-MM-DD HH:mm:ss Z]"));
+        this.initLogString(d.format("YYYY-MM-DD HH:mm:ss"));
         this.appendLogString(`[${this._service}]`)
 
         switch (level) {

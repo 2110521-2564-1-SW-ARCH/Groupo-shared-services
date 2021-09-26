@@ -67,7 +67,7 @@ class ApplicationLogger {
     }
     message(s, level) {
         const d = (0, dayjs_1.default)();
-        this.initLogString(d.format("[YYYY-MM-DD HH:mm:ss Z]"));
+        this.initLogString(d.format("YYYY-MM-DD HH:mm:ss"));
         this.appendLogString(`[${this._service}]`);
         switch (level) {
             case "INFO":
