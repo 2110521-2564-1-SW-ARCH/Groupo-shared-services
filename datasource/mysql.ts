@@ -17,6 +17,6 @@ export const initMySQLConnection = (modelPath: string) => {
     }).then(() => {
         lg.info("connect to mysql successfully");
     }).catch(err => {
-        lg.error("cannot connect to mysql");
+        lg.field("error", err).error("cannot connect to mysql");
     })
 }
