@@ -61,11 +61,10 @@ const handler = (err, req, res, next) => {
     }
 };
 exports.handler = handler;
-const catcher = (target, propertyKey, descriptor) => {
-    const handler = descriptor.value;
-    descriptor.value = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const catcher = (handler) => {
+    return (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            yield handler.apply(this, ...[req, res, next]);
+            yield handler(req, res, next);
         }
         catch (err) {
             next(err);

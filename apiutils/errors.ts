@@ -53,11 +53,10 @@ export const handler: express.ErrorRequestHandler = (err: any, req: express.Requ
     }
 }
 
-export const catcher = (target: Object, propertyKey: string, descriptor: PropertyDescriptor) => {
-    const handler = descriptor.value;
-    descriptor.value = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+export const catcher = (handler: express.Handler): express.Handler => {
+    return async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         try {
-            await handler.apply(this, ...[req, res, next]);
+            await handler(req, res, next);
         } catch (err) {
             next(err);
         }
