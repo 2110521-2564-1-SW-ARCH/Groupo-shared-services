@@ -25,9 +25,7 @@ class ApplicationLogger {
         this.logString = "";
     }
     service(s) {
-        const l = this.clone();
-        l._service = s;
-        return l;
+        this._service = s;
     }
     traceID(s) {
         const l = this.clone();
@@ -68,8 +66,8 @@ class ApplicationLogger {
         this.message(s, "ERROR");
     }
     message(s, level) {
-        const t = (0, dayjs_1.default)();
-        this.initLogString(t.format("[YYYY-MM-DD HH:mm:ss Z]"));
+        const d = (0, dayjs_1.default)();
+        this.initLogString(d.format("[YYYY-MM-DD HH:mm:ss Z]"));
         this.appendLogString(`[${this._service}]`);
         switch (level) {
             case "INFO":

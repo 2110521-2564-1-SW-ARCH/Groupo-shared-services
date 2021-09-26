@@ -23,10 +23,8 @@ export class ApplicationLogger {
 
     private logString: string = "";
 
-    service(s: string): ApplicationLogger {
-        const l = this.clone();
-        l._service = s;
-        return l;
+    service(s: string) {
+        this._service = s;
     }
 
     traceID(s: string): ApplicationLogger {
@@ -74,9 +72,9 @@ export class ApplicationLogger {
     }
 
     message(s: string, level: LogLevel) {
-        const t = dayjs();
+        const d = dayjs();
 
-        this.initLogString(t.format("[YYYY-MM-DD HH:mm:ss Z]"));
+        this.initLogString(d.format("[YYYY-MM-DD HH:mm:ss Z]"));
         this.appendLogString(`[${this._service}]`)
 
         switch (level) {

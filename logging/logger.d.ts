@@ -4,7 +4,7 @@ export declare class ApplicationLogger {
     private _traceID;
     private _fields;
     private logString;
-    service(s: string): ApplicationLogger;
+    service(s: string): void;
     traceID(s: string): ApplicationLogger;
     field(key: string, value: string): ApplicationLogger;
     private initLogString;

@@ -1,8 +1,6 @@
 import {createConnection} from "typeorm";
 import {logger, registerApplicationLogger} from "../logging/logger";
 
-registerApplicationLogger("common-services");
-
 export const initMySQLConnection = (modelPath: string) => {
     const lg = logger.field("host", process.env.MYSQL_HOST).field("user", process.env.MYSQL_USER);
     lg.info("initiate mysql connection...");
