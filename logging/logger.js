@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ApplicationLogger = void 0;
+exports.registerApplicationLogger = exports.logger = exports.ApplicationLogger = void 0;
 const colors = {
     reset: "\x1b[0m",
     // colors
@@ -15,13 +15,24 @@ const colors = {
 };
 class ApplicationLogger {
     constructor() {
-        this.traceID = "";
-        this.fields = {};
+        this._service = "";
+        this._traceID = "";
+        this._fields = {};
         this.logString = "";
+    }
+    service(s) {
+        const l = this.clone();
+        l._service = s;
+        return l;
+    }
+    traceID(s) {
+        const l = this.clone();
+        l._traceID = s;
+        return l;
     }
     field(key, value) {
         const l = this.clone();
-        l.fields[key] = value;
+        l._fields[key] = value;
         return l;
     }
     initLogString(s, color) {
@@ -72,17 +83,22 @@ class ApplicationLogger {
         if (s) {
             this.appendLogString(s);
         }
-        for (const k of Object.keys(this.fields)) {
-            this.appendLogString(`  ${colors.cyan}${k}${colors.reset}=${colors.cyan}${this.fields[k]}${colors.reset}`);
+        for (const k of Object.keys(this._fields)) {
+            this.appendLogString(`  ${colors.cyan}${k}${colors.reset}=${colors.cyan}${this._fields[k]}${colors.reset}`);
         }
         console.log(this.logString);
     }
     clone() {
         const l = new ApplicationLogger();
         l.traceID = this.traceID;
-        l.fields = Object.assign({}, this.fields);
+        l._fields = Object.assign({}, this._fields);
         return l;
     }
 }
 exports.ApplicationLogger = ApplicationLogger;
+exports.logger = new ApplicationLogger();
+const registerApplicationLogger = (service) => {
+    exports.logger.service(service);
+};
+exports.registerApplicationLogger = registerApplicationLogger;
 //# sourceMappingURL=logger.js.map

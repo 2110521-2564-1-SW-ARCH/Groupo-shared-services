@@ -8,12 +8,12 @@
 
 ### Logging (backend)
 
-logger can log with 4 levels (info, debug, warn, error)
+before using logger, we have to register our service name to logger.
 
 ```typescript
-import {ApplicationLogger} from "groupo-shared-services/logging/logger";
+import {logger, registerApplicationLogger} from "groupo-shared-services/logging/logger";
 
-const logger = new ApplicationLogger();
+registerApplicationLogger("user-service");
 
 // log with info level
 logger.info("message");

@@ -15,14 +15,27 @@ const colors = {
 type LogLevel = "INFO" | "DEBUG" | "WARN" | "ERROR";
 
 export class ApplicationLogger {
-    private traceID: string = "";
-    private fields: Record<string, string> = {};
+    private _service: string = "";
+    private _traceID: string = "";
+    private _fields: Record<string, string> = {};
 
     private logString: string = "";
 
+    service(s: string): ApplicationLogger {
+        const l = this.clone();
+        l._service = s;
+        return l;
+    }
+
+    traceID(s: string): ApplicationLogger {
+        const l = this.clone();
+        l._traceID = s;
+        return l;
+    }
+
     field(key: string, value: string): ApplicationLogger {
         const l = this.clone();
-        l.fields[key] = value;
+        l._fields[key] = value;
         return l;
     }
 
@@ -82,8 +95,8 @@ export class ApplicationLogger {
             this.appendLogString(s)
         }
 
-        for (const k of Object.keys(this.fields)) {
-            this.appendLogString(`  ${colors.cyan}${k}${colors.reset}=${colors.cyan}${this.fields[k]}${colors.reset}`);
+        for (const k of Object.keys(this._fields)) {
+            this.appendLogString(`  ${colors.cyan}${k}${colors.reset}=${colors.cyan}${this._fields[k]}${colors.reset}`);
         }
 
 
@@ -93,7 +106,13 @@ export class ApplicationLogger {
     clone(): ApplicationLogger {
         const l = new ApplicationLogger();
         l.traceID = this.traceID;
-        l.fields = {...this.fields};
+        l._fields = {...this._fields};
         return l;
     }
+}
+
+export const logger = new ApplicationLogger();
+
+export const registerApplicationLogger = (service: string) => {
+    logger.service(service);
 }

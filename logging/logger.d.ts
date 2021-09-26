@@ -1,8 +1,11 @@
 declare type LogLevel = "INFO" | "DEBUG" | "WARN" | "ERROR";
 export declare class ApplicationLogger {
-    private traceID;
-    private fields;
+    private _service;
+    private _traceID;
+    private _fields;
     private logString;
+    service(s: string): ApplicationLogger;
+    traceID(s: string): ApplicationLogger;
     field(key: string, value: string): ApplicationLogger;
     private initLogString;
     private appendLogString;
@@ -13,4 +16,6 @@ export declare class ApplicationLogger {
     message(s: string, level: LogLevel): void;
     clone(): ApplicationLogger;
 }
+export declare const logger: ApplicationLogger;
+export declare const registerApplicationLogger: (service: string) => void;
 export {};
