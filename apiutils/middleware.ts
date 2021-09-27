@@ -8,7 +8,7 @@ export const prepareLogger = (req: express.Request, res: express.Response): Appl
         .set("METHOD", req.method)
         .set("PATH", req.url)
         .set("STATUS", res.statusCode.toString())
-        .set("CPU_TIME", `${performance.now() - req.body.startTime}ms`)
+        .set("CPU_TIME", `${(performance.now() - req.body.startTime).toFixed(3)}ms`)
 }
 
 export const prepareHttpLogger: express.RequestHandler =  (req: express.Request, res: express.Response, next: express.NextFunction) => {

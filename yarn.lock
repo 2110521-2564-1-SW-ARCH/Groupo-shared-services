@@ -185,6 +185,11 @@
     "@types/mime" "^1"
     "@types/node" "*"
 
+"@types/uniqid@^5.3.1":
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/@types/uniqid/-/uniqid-5.3.1.tgz#a3b39529183b355a9445e18f3cc509ad3a017c29"
+  integrity sha512-XNXc2abchKzhV8278+lxDOLEB6P8lslIczu7TTvY2+uyHWos3EVI6pNejJ5rLyOieZL22X6ZEepCOfXghSQw/w==
+
 "@types/zen-observable@0.8.3":
   version "0.8.3"
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.8.3.tgz#781d360c282436494b32fe7d9f7f8e64b3118aa3"
@@ -896,6 +901,11 @@ typescript@^4.4.3:
   version "4.4.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.4.3.tgz#bdc5407caa2b109efd4f82fe130656f977a29324"
   integrity sha512-4xfscpisVgqqDfPaJo5vkd+Qd/ItkoagnHpufr+i2QCHBsNYp+G7UAoyFl8aPtx879u38wPV65rZ8qbGZijalA==
+
+uniqid@^5.4.0:
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/uniqid/-/uniqid-5.4.0.tgz#4e17bfcab66dfe33563411ae0c801f46ef964e66"
+  integrity sha512-38JRbJ4Fj94VmnC7G/J/5n5SC7Ab46OM5iNtSstB/ko3l1b5g7ALt4qzHFgGciFkyiRNtDXtLNb+VsxtMSE77A==
 
 wrap-ansi@^7.0.0:
   version "7.0.0"
