@@ -3,7 +3,7 @@ import {handler as grpcHandler, logger as lg} from "../services/logger";
 import {LoggingGrpcClient} from "../grpc/client";
 
 export const initMySQLConnection = (modelPath: string) => {
-    const logger = lg.set("host", process.env.MYSQL_HOST).set("user", process.env.MYSQL_USER);
+    const logger = lg.set("MYSQL_HOST", process.env.MYSQL_HOST).set("MYSQL_USER", process.env.MYSQL_USER);
 
     LoggingGrpcClient.Info(logger.message("initiate mysql connection").proto(), grpcHandler);
 

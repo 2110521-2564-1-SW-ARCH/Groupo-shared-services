@@ -5,7 +5,7 @@ const typeorm_1 = require("typeorm");
 const logger_1 = require("../services/logger");
 const client_1 = require("../grpc/client");
 const initMySQLConnection = (modelPath) => {
-    const logger = logger_1.logger.set("host", process.env.MYSQL_HOST).set("user", process.env.MYSQL_USER);
+    const logger = logger_1.logger.set("MYSQL_HOST", process.env.MYSQL_HOST).set("MYSQL_USER", process.env.MYSQL_USER);
     client_1.LoggingGrpcClient.Info(logger.message("initiate mysql connection").proto(), logger_1.handler);
     (0, typeorm_1.createConnection)({
         type: "mysql",
