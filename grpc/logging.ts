@@ -12,5 +12,10 @@ export interface ApplicationLogMessage {
     message: string;
 
     // custom fields
-    customFields: Record<string, string>;
+    fields: Record<string, string>;
+}
+
+export interface SerializedApplicationLogMessage {
+    // console log message
+    msg: string;
 }

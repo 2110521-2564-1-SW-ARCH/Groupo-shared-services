@@ -1,9 +1,12 @@
 import {createConnection} from "typeorm";
-import {logger} from "../logging/logger";
+import {handler as grpcHandler, logger as lg} from "../services/logger";
+import {LoggingGrpcClient} from "../grpc/client";
 
 export const initMySQLConnection = (modelPath: string) => {
-    const lg = logger.field("host", process.env.MYSQL_HOST).field("user", process.env.MYSQL_USER);
-    lg.info("initiate mysql connection");
+    const logger = lg.set("host", process.env.MYSQL_HOST).set("user", process.env.MYSQL_USER);
+
+    LoggingGrpcClient.Info(logger.message("initiate mysql connection").proto(), grpcHandler);
+
     createConnection({
         type: "mysql",
         host: process.env.MYSQL_HOST,
@@ -15,8 +18,8 @@ export const initMySQLConnection = (modelPath: string) => {
         synchronize: true,
         logging: false,
     }).then(() => {
-        lg.info("connect to mysql successfully");
+        LoggingGrpcClient.Info(logger.message("connect to mysql successfully").proto(), grpcHandler)
     }).catch(err => {
-        lg.field("error", err).error("cannot connect to mysql");
+        LoggingGrpcClient.Info(logger.set("error", err).message("cannot connect to mysql").proto(), grpcHandler)
     })
 }

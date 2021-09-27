@@ -12,7 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.catcher = exports.handler = exports.NotFoundError = exports.UnauthorizedError = exports.InternalServerError = exports.BaseAPIError = void 0;
 const http_status_codes_1 = require("http-status-codes");
 const messages_1 = require("./messages");
-const logger_1 = require("../logging/logger");
+const logger_1 = require("../services/logger");
+const client_1 = require("../grpc/client");
 class BaseAPIError extends Error {
     constructor(code, message) {
         super();
@@ -53,11 +54,11 @@ exports.NotFoundError = NotFoundError;
 const handler = (err, req, res, next) => {
     switch (true) {
         case err instanceof BaseAPIError:
-            logger_1.logger.field("error", err).error("api error");
+            client_1.LoggingGrpcClient.Error(logger_1.logger.set("error", err).message("API error").proto(), logger_1.handler);
             (0, messages_1.json)(res, err.response());
             break;
         default:
-            logger_1.logger.field("error", err).error("internal server error");
+            client_1.LoggingGrpcClient.Error(logger_1.logger.set("error", err).message("internal server error").proto(), logger_1.handler);
             (0, messages_1.json)(res, new InternalServerError().response());
     }
 };

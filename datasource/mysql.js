@@ -2,10 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.initMySQLConnection = void 0;
 const typeorm_1 = require("typeorm");
-const logger_1 = require("../logging/logger");
+const logger_1 = require("../services/logger");
+const client_1 = require("../grpc/client");
 const initMySQLConnection = (modelPath) => {
-    const lg = logger_1.logger.field("host", process.env.MYSQL_HOST).field("user", process.env.MYSQL_USER);
-    lg.info("initiate mysql connection");
+    const logger = logger_1.logger.set("host", process.env.MYSQL_HOST).set("user", process.env.MYSQL_USER);
+    client_1.LoggingGrpcClient.Info(logger.message("initiate mysql connection").proto(), logger_1.handler);
     (0, typeorm_1.createConnection)({
         type: "mysql",
         host: process.env.MYSQL_HOST,
@@ -17,9 +18,9 @@ const initMySQLConnection = (modelPath) => {
         synchronize: true,
         logging: false,
     }).then(() => {
-        lg.info("connect to mysql successfully");
+        client_1.LoggingGrpcClient.Info(logger.message("connect to mysql successfully").proto(), logger_1.handler);
     }).catch(err => {
-        lg.field("error", err).error("cannot connect to mysql");
+        client_1.LoggingGrpcClient.Info(logger.set("error", err).message("cannot connect to mysql").proto(), logger_1.handler);
     });
 };
 exports.initMySQLConnection = initMySQLConnection;

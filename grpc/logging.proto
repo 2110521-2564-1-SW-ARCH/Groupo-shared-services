@@ -16,15 +16,17 @@ message ApplicationLogMessage {
   string message = 4;
 
   // custom fields
-  map<string, string> custom_fields = 5;
+  map<string, string> fields = 5;
 }
 
-message EmptyMessage {
+message SerializedApplicationLogMessage {
+  // console log message
+  string msg = 1;
 }
 
 service ApplicationLogService {
-  rpc Info(ApplicationLogMessage) returns (EmptyMessage);
-  rpc Debug(ApplicationLogMessage) returns (EmptyMessage);
-  rpc Warn(ApplicationLogMessage) returns (EmptyMessage);
-  rpc Error(ApplicationLogMessage) returns (EmptyMessage);
+  rpc Info(ApplicationLogMessage) returns (SerializedApplicationLogMessage);
+  rpc Debug(ApplicationLogMessage) returns (SerializedApplicationLogMessage);
+  rpc Warn(ApplicationLogMessage) returns (SerializedApplicationLogMessage);
+  rpc Error(ApplicationLogMessage) returns (SerializedApplicationLogMessage);
 }

@@ -1,7 +1,8 @@
 import {getReasonPhrase, StatusCodes} from "http-status-codes";
 import express from "express";
 import {APIResponse, json} from "./messages";
-import {logger} from "../logging/logger";
+import {logger, handler as grpcHandler} from "../services/logger";
+import {LoggingGrpcClient} from "../grpc/client";
 
 export class BaseAPIError extends Error {
     code: number;
@@ -45,11 +46,11 @@ export class NotFoundError extends BaseAPIError {
 export const handler: express.ErrorRequestHandler = (err: any, req: express.Request, res: express.Response, next) => {
     switch (true) {
         case err instanceof BaseAPIError:
-            logger.field("error", err).error("api error");
+            LoggingGrpcClient.Error(logger.set("error", err).message("API error").proto(), grpcHandler);
             json(res, err.response());
             break;
         default:
-            logger.field("error", err).error("internal server error");
+            LoggingGrpcClient.Error(logger.set("error", err).message("internal server error").proto(), grpcHandler);
             json(res, new InternalServerError().response());
     }
 }

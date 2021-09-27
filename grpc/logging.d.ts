@@ -3,5 +3,8 @@ export interface ApplicationLogMessage {
     service: string;
     traceID: string;
     message: string;
-    customFields: Record<string, string>;
+    fields: Record<string, string>;
+}
+export interface SerializedApplicationLogMessage {
+    msg: string;
 }
