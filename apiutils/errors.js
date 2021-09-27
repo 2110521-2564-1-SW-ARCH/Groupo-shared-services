@@ -59,7 +59,7 @@ const handler = (err, req, res, next) => {
             (0, messages_1.json)(res, err.response());
             break;
         case err instanceof typeorm_1.EntityNotFoundError:
-            client_1.LoggingGrpcClient.Error(logger_1.logger.set("error", err.message).set("matching", JSON.stringify(err.matching)).message("entity not found error").proto(), logger_1.handler);
+            client_1.LoggingGrpcClient.Error(logger_1.logger.set("error", err.message).message("entity not found error").proto(), logger_1.handler);
             (0, messages_1.json)(res, new NotFoundError().response());
             break;
         default:
