@@ -23,5 +23,8 @@ message EmptyMessage {
 }
 
 service ApplicationLogService {
-  rpc Push(stream ApplicationLogMessage) returns (EmptyMessage);
+  rpc Info(ApplicationLogMessage) returns (EmptyMessage);
+  rpc Debug(ApplicationLogMessage) returns (EmptyMessage);
+  rpc Warn(ApplicationLogMessage) returns (EmptyMessage);
+  rpc Error(ApplicationLogMessage) returns (EmptyMessage);
 }
