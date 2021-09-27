@@ -1,6 +1,7 @@
 import {LoggingGrpcClient} from "../grpc/client";
 import {logger, handler as grpcHandler, ApplicationLogger} from "../services/logger";
 import express from "express";
+import {performance} from "perf_hooks";
 
 export const prepareLogger = (req: express.Request, res: express.Response): ApplicationLogger => {
     return logger
