@@ -20,7 +20,7 @@ const initMySQLConnection = (modelPath) => {
     }).then(() => {
         client_1.LoggingGrpcClient.Info(logger.message("connect to mysql successfully").proto(), logger_1.handler);
     }).catch(err => {
-        client_1.LoggingGrpcClient.Info(logger.set("error", err).message("cannot connect to mysql").proto(), logger_1.handler);
+        client_1.LoggingGrpcClient.Error(logger.set("error", err).message("cannot connect to mysql").proto(), logger_1.handler);
     });
 };
 exports.initMySQLConnection = initMySQLConnection;

@@ -20,6 +20,6 @@ export const initMySQLConnection = (modelPath: string) => {
     }).then(() => {
         LoggingGrpcClient.Info(logger.message("connect to mysql successfully").proto(), grpcHandler)
     }).catch(err => {
-        LoggingGrpcClient.Info(logger.set("error", err).message("cannot connect to mysql").proto(), grpcHandler)
+        LoggingGrpcClient.Error(logger.set("error", err).message("cannot connect to mysql").proto(), grpcHandler)
     })
 }
