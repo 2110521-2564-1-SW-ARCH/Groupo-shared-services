@@ -12,6 +12,4 @@ const loggingDefinition = loader.loadSync(
     }
 );
 
-const loggingDescription = grpc.loadPackageDefinition(loggingDefinition);
-
-console.log(loggingDescription);
+export const loggingDescription = grpc.loadPackageDefinition(loggingDefinition);

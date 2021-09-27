@@ -19,6 +19,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.loggingDescription = void 0;
 const grpc = __importStar(require("@grpc/grpc-js"));
 const loader = __importStar(require("@grpc/proto-loader"));
 const loggingDefinition = loader.loadSync(__dirname + "/logging.proto", {
@@ -28,6 +29,5 @@ const loggingDefinition = loader.loadSync(__dirname + "/logging.proto", {
     defaults: true,
     oneofs: true,
 });
-const loggingDescription = grpc.loadPackageDefinition(loggingDefinition);
-console.log(loggingDescription);
+exports.loggingDescription = grpc.loadPackageDefinition(loggingDefinition);
 //# sourceMappingURL=index.js.map
