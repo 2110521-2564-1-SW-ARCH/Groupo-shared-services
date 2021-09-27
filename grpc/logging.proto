@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+message ApplicationLogMessage {
+  // unix timestamp
+  uint32 timestamp = 1;
+
+  // source of the service
+  string service = 2;
+
+  // trace ID for tracking request
+  string traceID = 3;
+
+  // log message
+  string message = 4;
+
+  // custom fields
+  map<string, string> custom_fields = 5;
+}
+
+message EmptyMessage {
+}
+
+service ApplicationLogService {
+  rpc Push(stream ApplicationLogMessage) returns (EmptyMessage);
+}
