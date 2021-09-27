@@ -14,7 +14,7 @@ const prepareLogger = (req, res) => {
 exports.prepareLogger = prepareLogger;
 const prepareHttpLogger = (req, res, next) => {
     req.body = Object.assign(Object.assign({}, req.body), { startTime: perf_hooks_1.performance.now() });
-    client_1.LoggingGrpcClient.Info((0, exports.prepareLogger)(req, res).message("http request success").proto(), logger_1.handler);
+    next();
 };
 exports.prepareHttpLogger = prepareHttpLogger;
 const httpLogger = (req, res) => {

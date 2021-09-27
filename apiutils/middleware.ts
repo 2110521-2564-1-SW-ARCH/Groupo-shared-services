@@ -13,7 +13,7 @@ export const prepareLogger = (req: express.Request, res: express.Response): Appl
 
 export const prepareHttpLogger: express.RequestHandler =  (req: express.Request, res: express.Response, next: express.NextFunction) => {
     req.body = {...req.body, startTime: performance.now()}
-    LoggingGrpcClient.Info(prepareLogger(req, res).message("http request success").proto(), grpcHandler);
+    next();
 }
 
 export const httpLogger: express.RequestHandler = (req: express.Request, res: express.Response) => {
