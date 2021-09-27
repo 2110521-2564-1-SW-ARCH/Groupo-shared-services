@@ -3,6 +3,7 @@ import express from "express";
 import {APIResponse, json} from "./messages";
 import {logger, handler as grpcHandler} from "../services/logger";
 import {LoggingGrpcClient} from "../grpc/client";
+import {EntityNotFoundError} from "typeorm";
 
 export class BaseAPIError extends Error {
     code: number;
@@ -49,6 +50,9 @@ export const handler: express.ErrorRequestHandler = (err: any, req: express.Requ
             LoggingGrpcClient.Error(logger.set("error", err).message("API error").proto(), grpcHandler);
             json(res, err.response());
             break;
+        case err instanceof EntityNotFoundError:
+            LoggingGrpcClient.Error(logger.set("error", err).message("entity not found error").proto(), grpcHandler);
+            json(res, new NotFoundError(err).response())
         default:
             LoggingGrpcClient.Error(logger.set("error", err).message("internal server error").proto(), grpcHandler);
             json(res, new InternalServerError().response());
