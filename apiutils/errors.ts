@@ -4,6 +4,7 @@ import {APIResponse, json} from "./messages";
 import {logger, handler as grpcHandler} from "../services/logger";
 import {LoggingGrpcClient} from "../grpc/client";
 import {EntityNotFoundError} from "typeorm";
+import {prepareLogger} from "./middleware";
 
 export class BaseAPIError extends Error {
     code: number;
@@ -45,6 +46,8 @@ export class NotFoundError extends BaseAPIError {
 }
 
 export const handler: express.ErrorRequestHandler = (err: any, req: express.Request, res: express.Response, next) => {
+    LoggingGrpcClient.Error(prepareLogger(req, res).message("http request error").proto(), grpcHandler);
+
     switch (true) {
         case err instanceof BaseAPIError:
             LoggingGrpcClient.Error(logger.set("error", err.message).message("API error").proto(), grpcHandler);

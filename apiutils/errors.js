@@ -15,6 +15,7 @@ const messages_1 = require("./messages");
 const logger_1 = require("../services/logger");
 const client_1 = require("../grpc/client");
 const typeorm_1 = require("typeorm");
+const middleware_1 = require("./middleware");
 class BaseAPIError extends Error {
     constructor(code, message) {
         super();
@@ -53,6 +54,7 @@ class NotFoundError extends BaseAPIError {
 }
 exports.NotFoundError = NotFoundError;
 const handler = (err, req, res, next) => {
+    client_1.LoggingGrpcClient.Error((0, middleware_1.prepareLogger)(req, res).message("http request error").proto(), logger_1.handler);
     switch (true) {
         case err instanceof BaseAPIError:
             client_1.LoggingGrpcClient.Error(logger_1.logger.set("error", err.message).message("API error").proto(), logger_1.handler);
