@@ -1,2 +1,2 @@
 import express from "express";
-export declare const httpLogMiddleware: express.RequestHandler;
+export declare const httpLogger: express.RequestHandler;
