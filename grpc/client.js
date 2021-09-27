@@ -22,5 +22,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.LoggingGrpcClient = void 0;
 const grpc = __importStar(require("@grpc/grpc-js"));
 const index_1 = require("./index");
-exports.LoggingGrpcClient = new index_1.loggingDescription.ApplicationLogService(process.env.GRPC_SERVER_HOST, grpc.credentials.createInsecure());
+exports.LoggingGrpcClient = new index_1.loggingDescription.ApplicationLogService(process.env.GRPC_SERVER_HOST + ":" + process.env.GRPC_SERVER_PORT, grpc.credentials.createInsecure());
 //# sourceMappingURL=client.js.map
