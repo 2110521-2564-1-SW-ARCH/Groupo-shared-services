@@ -22,7 +22,7 @@ const successApplicationLogMessage: ApplicationLogMessage = {
     customFields: {},
 }
 
-const loggingDescription: any = grpc.loadPackageDefinition(loggingDefinition).logging as unknown as GrpcObject;
-export const GrpcClient = new loggingDescription.ApplicationLogService(process.env.GRPC_SERVER_HOST, grpc.credentials.createInsecure())
+export const loggingDescription: any = grpc.loadPackageDefinition(loggingDefinition).logging as unknown as GrpcObject;
+export const LoggingGrpcClient = new loggingDescription.ApplicationLogService(process.env.GRPC_SERVER_HOST, grpc.credentials.createInsecure())
 
-GrpcClient.Info(successApplicationLogMessage)
+LoggingGrpcClient.Info(successApplicationLogMessage)

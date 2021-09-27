@@ -1,1 +1,2 @@
-export declare const GrpcClient: any;
+export declare const loggingDescription: any;
+export declare const LoggingGrpcClient: any;
