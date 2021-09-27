@@ -6,10 +6,10 @@ const logger_1 = require("../services/logger");
 const perf_hooks_1 = require("perf_hooks");
 const prepareLogger = (req, res) => {
     return logger_1.logger
-        .set("method", req.method)
-        .set("path", req.url)
-        .set("status", res.statusCode.toString())
-        .set("cpu time", `${perf_hooks_1.performance.now() - req.body.startTime}ms`);
+        .set("METHOD", req.method)
+        .set("PATH", req.url)
+        .set("STATUS", res.statusCode.toString())
+        .set("CPU_TIME", `${perf_hooks_1.performance.now() - req.body.startTime}ms`);
 };
 exports.prepareLogger = prepareLogger;
 const prepareHttpLogger = (req, res, next) => {

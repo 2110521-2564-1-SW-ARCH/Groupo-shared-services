@@ -5,10 +5,10 @@ import {performance} from "perf_hooks";
 
 export const prepareLogger = (req: express.Request, res: express.Response): ApplicationLogger => {
     return logger
-        .set("method", req.method)
-        .set("path", req.url)
-        .set("status", res.statusCode.toString())
-        .set("cpu time", `${performance.now() - req.body.startTime}ms`)
+        .set("METHOD", req.method)
+        .set("PATH", req.url)
+        .set("STATUS", res.statusCode.toString())
+        .set("CPU_TIME", `${performance.now() - req.body.startTime}ms`)
 }
 
 export const prepareHttpLogger: express.RequestHandler =  (req: express.Request, res: express.Response, next: express.NextFunction) => {
