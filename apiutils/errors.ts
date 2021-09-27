@@ -53,6 +53,7 @@ export const handler: express.ErrorRequestHandler = (err: any, req: express.Requ
         case err instanceof EntityNotFoundError:
             LoggingGrpcClient.Error(logger.set("error", err).message("entity not found error").proto(), grpcHandler);
             json(res, new NotFoundError(err).response())
+            break;
         default:
             LoggingGrpcClient.Error(logger.set("error", err).message("internal server error").proto(), grpcHandler);
             json(res, new InternalServerError().response());
