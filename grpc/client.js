@@ -19,15 +19,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loggingDescription = void 0;
+exports.LoggingGrpcClient = void 0;
 const grpc = __importStar(require("@grpc/grpc-js"));
-const loader = __importStar(require("@grpc/proto-loader"));
-const loggingDefinition = loader.loadSync(__dirname + "/logging.proto", {
-    keepCase: true,
-    longs: String,
-    enums: String,
-    defaults: true,
-    oneofs: true,
-});
-exports.loggingDescription = grpc.loadPackageDefinition(loggingDefinition).logging;
-//# sourceMappingURL=index.js.map
+const index_1 = require("./index");
+exports.LoggingGrpcClient = new index_1.loggingDescription.ApplicationLogService(process.env.GRPC_SERVER_HOST, grpc.credentials.createInsecure());
+//# sourceMappingURL=client.js.map
