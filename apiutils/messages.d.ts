@@ -43,6 +43,7 @@ export interface BoardInvitationRequest {
     members: string[];
 }
 export interface BoardResponse {
+    boardID: string;
     name: string;
     totalGroup: number;
     totalMember: number;
