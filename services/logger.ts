@@ -55,10 +55,10 @@ export const registerApplicationLogger = (service: string) => {
     logger.service(service);
 }
 
-export const handler = (err: any, {msg}: SerializedApplicationLogMessage) => {
+export const handler = (err: any, res: SerializedApplicationLogMessage) => {
     if (err) {
         console.log(err);
     } else {
-        console.log(msg);
+        console.log(res.msg);
     }
 }

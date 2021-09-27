@@ -53,12 +53,12 @@ const registerApplicationLogger = (service) => {
     exports.logger.service(service);
 };
 exports.registerApplicationLogger = registerApplicationLogger;
-const handler = (err, { msg }) => {
+const handler = (err, res) => {
     if (err) {
         console.log(err);
     }
     else {
-        console.log(msg);
+        console.log(res.msg);
     }
 };
 exports.handler = handler;

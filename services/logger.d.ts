@@ -13,4 +13,4 @@ export declare class ApplicationLogger {
 }
 export declare const logger: ApplicationLogger;
 export declare const registerApplicationLogger: (service: string) => void;
-export declare const handler: (err: any, { msg }: SerializedApplicationLogMessage) => void;
+export declare const handler: (err: any, res: SerializedApplicationLogMessage) => void;
