@@ -55,15 +55,15 @@ exports.NotFoundError = NotFoundError;
 const handler = (err, req, res, next) => {
     switch (true) {
         case err instanceof BaseAPIError:
-            client_1.LoggingGrpcClient.Error(logger_1.logger.set("error", JSON.stringify(err)).message("API error").proto(), logger_1.handler);
+            client_1.LoggingGrpcClient.Error(logger_1.logger.set("error", err.message).message("API error").proto(), logger_1.handler);
             (0, messages_1.json)(res, err.response());
             break;
         case err instanceof typeorm_1.EntityNotFoundError:
-            client_1.LoggingGrpcClient.Error(logger_1.logger.set("error", JSON.stringify(err)).message("entity not found error").proto(), logger_1.handler);
+            client_1.LoggingGrpcClient.Error(logger_1.logger.set("error", err.message).set("matching", JSON.stringify(err.matching)).message("entity not found error").proto(), logger_1.handler);
             (0, messages_1.json)(res, new NotFoundError().response());
             break;
         default:
-            client_1.LoggingGrpcClient.Error(logger_1.logger.set("error", JSON.stringify(err)).message("internal server error").proto(), logger_1.handler);
+            client_1.LoggingGrpcClient.Error(logger_1.logger.set("error", err.message).message("internal server error").proto(), logger_1.handler);
             (0, messages_1.json)(res, new InternalServerError().response());
     }
 };
