@@ -1,3 +1,4 @@
+import { ApplicationLogger } from "../services/logger";
 import express from "express";
-export declare const dump: (req: express.Request, res: express.Response) => string;
+export declare const prepareLogger: (req: express.Request, res: express.Response) => ApplicationLogger;
 export declare const httpLogger: express.RequestHandler;
