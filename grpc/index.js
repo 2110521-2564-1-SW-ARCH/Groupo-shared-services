@@ -19,7 +19,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loggingDescription = void 0;
+exports.GrpcClient = void 0;
 const grpc = __importStar(require("@grpc/grpc-js"));
 const loader = __importStar(require("@grpc/proto-loader"));
 const loggingDefinition = loader.loadSync(__dirname + "/logging.proto", {
@@ -29,5 +29,14 @@ const loggingDefinition = loader.loadSync(__dirname + "/logging.proto", {
     defaults: true,
     oneofs: true,
 });
-exports.loggingDescription = grpc.loadPackageDefinition(loggingDefinition).logging;
+const successApplicationLogMessage = {
+    traceID: "",
+    message: "Connect to GRPC Server successfully",
+    service: "common-service",
+    timestamp: 0,
+    customFields: {},
+};
+const loggingDescription = grpc.loadPackageDefinition(loggingDefinition).logging;
+exports.GrpcClient = new loggingDescription.ApplicationLogService(process.env.GRPC_SERVER_HOST, grpc.credentials.createInsecure());
+exports.GrpcClient.Info(successApplicationLogMessage);
 //# sourceMappingURL=index.js.map
