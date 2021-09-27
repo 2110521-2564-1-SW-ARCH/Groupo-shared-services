@@ -29,5 +29,5 @@ const loggingDefinition = loader.loadSync(__dirname + "/logging.proto", {
     defaults: true,
     oneofs: true,
 });
-exports.loggingDescription = grpc.loadPackageDefinition(loggingDefinition);
+exports.loggingDescription = grpc.loadPackageDefinition(loggingDefinition).logging;
 //# sourceMappingURL=index.js.map
