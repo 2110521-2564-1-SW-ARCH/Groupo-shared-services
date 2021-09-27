@@ -36,6 +36,9 @@ export interface CreateBoardRequest {
     totalGroup: number;
     tags: Record<string, string[]>;
 }
+export interface CreateBoardResponse {
+    boardID: string;
+}
 export interface BoardInvitationRequest {
     members: string[];
 }
