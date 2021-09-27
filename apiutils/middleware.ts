@@ -10,7 +10,7 @@ export const prepareLogger = (req: express.Request, res: express.Response): Appl
         .set("cpu time", `${performance.now() - req.body.startTime}ms`)
 }
 
-export const initHttpLogger: express.RequestHandler =  (req: express.Request, res: express.Response, next: express.NextFunction) => {
+export const prepareHttpLogger: express.RequestHandler =  (req: express.Request, res: express.Response, next: express.NextFunction) => {
     req.body = {...req.body, startTime: performance.now()}
     LoggingGrpcClient.Info(prepareLogger(req, res).message("http request success").proto(), grpcHandler);
 }
