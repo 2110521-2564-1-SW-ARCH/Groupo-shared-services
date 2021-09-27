@@ -47,15 +47,15 @@ export class NotFoundError extends BaseAPIError {
 export const handler: express.ErrorRequestHandler = (err: any, req: express.Request, res: express.Response, next) => {
     switch (true) {
         case err instanceof BaseAPIError:
-            LoggingGrpcClient.Error(logger.set("error", err).message("API error").proto(), grpcHandler);
+            LoggingGrpcClient.Error(logger.set("error", JSON.stringify(err)).message("API error").proto(), grpcHandler);
             json(res, err.response());
             break;
         case err instanceof EntityNotFoundError:
-            LoggingGrpcClient.Error(logger.set("error", err).message("entity not found error").proto(), grpcHandler);
-            json(res, new NotFoundError(err).response())
+            LoggingGrpcClient.Error(logger.set("error", JSON.stringify(err)).message("entity not found error").proto(), grpcHandler);
+            json(res, new NotFoundError().response())
             break;
         default:
-            LoggingGrpcClient.Error(logger.set("error", err).message("internal server error").proto(), grpcHandler);
+            LoggingGrpcClient.Error(logger.set("error", JSON.stringify(err)).message("internal server error").proto(), grpcHandler);
             json(res, new InternalServerError().response());
     }
 }
