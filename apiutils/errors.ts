@@ -46,8 +46,6 @@ export class NotFoundError extends BaseAPIError {
 }
 
 export const handler: express.ErrorRequestHandler = (err: any, req: express.Request, res: express.Response, next) => {
-    LoggingGrpcClient.Error(prepareLogger(req, res).message("http request error").proto(), grpcHandler);
-
     switch (true) {
         case err instanceof BaseAPIError:
             LoggingGrpcClient.Error(logger.set("error", err.message).message("API error").proto(), grpcHandler);
@@ -61,6 +59,7 @@ export const handler: express.ErrorRequestHandler = (err: any, req: express.Requ
             LoggingGrpcClient.Error(logger.set("error", err.message).message("internal server error").proto(), grpcHandler);
             json(res, new InternalServerError().response());
     }
+    LoggingGrpcClient.Error(prepareLogger(req, res).message("http request error").proto(), grpcHandler);
 }
 
 export const catcher = (handler: express.Handler): express.Handler => {

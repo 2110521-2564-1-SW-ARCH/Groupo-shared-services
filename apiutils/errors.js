@@ -54,7 +54,6 @@ class NotFoundError extends BaseAPIError {
 }
 exports.NotFoundError = NotFoundError;
 const handler = (err, req, res, next) => {
-    client_1.LoggingGrpcClient.Error((0, middleware_1.prepareLogger)(req, res).message("http request error").proto(), logger_1.handler);
     switch (true) {
         case err instanceof BaseAPIError:
             client_1.LoggingGrpcClient.Error(logger_1.logger.set("error", err.message).message("API error").proto(), logger_1.handler);
@@ -68,6 +67,7 @@ const handler = (err, req, res, next) => {
             client_1.LoggingGrpcClient.Error(logger_1.logger.set("error", err.message).message("internal server error").proto(), logger_1.handler);
             (0, messages_1.json)(res, new InternalServerError().response());
     }
+    client_1.LoggingGrpcClient.Error((0, middleware_1.prepareLogger)(req, res).message("http request error").proto(), logger_1.handler);
 };
 exports.handler = handler;
 const catcher = (handler) => {
