@@ -1,5 +1,6 @@
 import * as grpc from "@grpc/grpc-js";
 import * as loader from "@grpc/proto-loader";
+import {GrpcObject} from "@grpc/grpc-js";
 
 const loggingDefinition = loader.loadSync(
     __dirname + "/logging.proto",
@@ -12,4 +13,4 @@ const loggingDefinition = loader.loadSync(
     }
 );
 
-export const loggingDescription = grpc.loadPackageDefinition(loggingDefinition).logging;
+export const loggingDescription: GrpcObject = grpc.loadPackageDefinition(loggingDefinition).logging as unknown as GrpcObject;
