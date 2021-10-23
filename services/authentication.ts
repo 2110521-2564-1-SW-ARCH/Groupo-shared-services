@@ -41,6 +41,13 @@ export const verifyToken = (token: string): Token => {
     }
 }
 
+export const verifyAuthorization = (authorization: string): Token => {
+    if (!authorization || !authorization.startsWith("Bearer ")) {
+        throw new UnauthorizedError("token is undefined or not bearer token");
+    }
+    return verifyToken(authorization.split("Bearer ")[1]);
+}
+
 export const verifyAuthorizationIncomingHeaders = (header: IncomingHttpHeaders): Token => {
     const bearer = header.authorization;
     if (!bearer || !bearer.startsWith("Bearer ")) {
