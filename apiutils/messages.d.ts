@@ -47,9 +47,9 @@ export interface BoardResponse {
     name: string;
     totalGroup: number;
     totalMember: number;
-    members: string[];
     isAssign: boolean;
     owner: string;
+    members: MemberResponse[];
     groups: GroupResponse[];
 }
 export interface GroupResponse {
@@ -58,4 +58,8 @@ export interface GroupResponse {
     description: string;
     members: string[];
     created_at: Date;
+}
+export interface MemberResponse {
+    email: string;
+    grouped: boolean;
 }
