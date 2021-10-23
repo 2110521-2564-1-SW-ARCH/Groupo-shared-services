@@ -61,5 +61,7 @@ export interface GroupResponse {
 }
 export interface MemberResponse {
     email: string;
-    grouped: boolean;
+    boardID: string;
+    groupID: string;
+    isJoined: boolean;
 }

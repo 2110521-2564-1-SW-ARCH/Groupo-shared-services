@@ -71,14 +71,16 @@ export interface BoardResponse {
 }
 
 export interface GroupResponse {
-    groupID: string,
-    name: string,
-    description: string,
-    members: string[],
-    created_at: Date,
+    groupID: string;
+    name: string;
+    description: string;
+    members: string[];
+    created_at: Date;
 }
 
 export interface MemberResponse {
     email: string;
-    grouped: boolean;
+    boardID: string,
+    groupID: string;
+    isJoined: boolean;
 }
