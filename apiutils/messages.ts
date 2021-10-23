@@ -64,7 +64,7 @@ export interface BoardResponse {
     owner: string;
     name: string;
     isAssign: boolean;
-    members: MemberResponse[];
+    members: string[];
     groups: GroupResponse[];
 }
 
@@ -72,14 +72,8 @@ export interface GroupResponse {
     groupID: string;
     name: string;
     description: string;
-    members: MemberResponse[];
+    members: string[];
     createdAt: Date;
-}
-
-export interface MemberResponse {
-    email: string;
-    boardID: string;
-    groupID: string | null;
 }
 
 export interface UpdateGroupRequest {
