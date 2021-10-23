@@ -50,4 +50,12 @@ export interface BoardResponse {
     members: string[];
     isAssign: boolean;
     owner: string;
+    groups: GroupResponse[];
+}
+export interface GroupResponse {
+    groupID: string;
+    name: string;
+    description: string;
+    members: string[];
+    created_at: Date;
 }

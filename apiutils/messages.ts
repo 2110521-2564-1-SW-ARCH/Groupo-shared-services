@@ -48,7 +48,7 @@ export interface UpdateProfileRequest {
 export interface CreateBoardRequest {
     name: string;
     totalGroup: number;
-    tags: Record<string, string[] >
+    tags: Record<string, string[]>
 }
 
 export interface CreateBoardResponse {
@@ -67,4 +67,13 @@ export interface BoardResponse {
     members: string[];
     isAssign: boolean;
     owner: string;
+    groups: GroupResponse[];
+}
+
+export interface GroupResponse {
+    groupID: string,
+    name: string,
+    description: string,
+    members: string[],
+    created_at: Date,
 }
