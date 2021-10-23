@@ -74,7 +74,7 @@ export interface GroupResponse {
     groupID: string;
     name: string;
     description: string;
-    members: string[];
+    members: MemberResponse[];
     created_at: Date;
 }
 
