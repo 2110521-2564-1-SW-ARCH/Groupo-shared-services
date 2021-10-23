@@ -64,7 +64,7 @@ export interface BoardResponse {
     owner: string;
     name: string;
     isAssign: boolean;
-    members: string[];
+    unAssignedMember: string[];
     groups: GroupResponse[];
 }
 
