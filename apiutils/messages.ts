@@ -81,3 +81,18 @@ export interface MemberResponse {
     boardID: string;
     groupID: string | null;
 }
+
+export interface UpdateGroupRequest {
+    name: string;
+    description: string | null;
+}
+
+export interface CreateGroupRequest {
+    boardID: string;
+    name: string;
+    description: string | null;
+}
+
+export interface CreateGroupResponse {
+    groupID: string;
+}
