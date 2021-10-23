@@ -57,6 +57,11 @@ export interface GroupResponse {
     members: string[];
     createdAt: Date;
 }
+export interface MemberResponse {
+    email: string;
+    boardID: string;
+    groupID: string | null;
+}
 export interface UpdateGroupRequest {
     name: string;
     description: string | null;
