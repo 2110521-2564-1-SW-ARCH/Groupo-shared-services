@@ -57,7 +57,7 @@ export interface GroupResponse {
     name: string;
     description: string;
     members: MemberResponse[];
-    created_at: Date;
+    createdAt: Date;
 }
 export interface MemberResponse {
     email: string;
