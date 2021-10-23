@@ -80,7 +80,6 @@ export interface GroupResponse {
 
 export interface MemberResponse {
     email: string;
-    boardID: string,
-    groupID: string;
-    isJoined: boolean;
+    boardID: string;
+    groupID: string | null;
 }
