@@ -1,6 +1,7 @@
 import {JwtPayload, sign, verify} from "jsonwebtoken";
 import {UnauthorizedError} from "../apiutils/errors";
 import express from "express";
+import {IncomingHttpHeaders} from "http";
 
 export class AccessTokenExpiredError extends UnauthorizedError {
     constructor() {
@@ -38,6 +39,14 @@ export const verifyToken = (token: string): Token => {
         }
         throw e;
     }
+}
+
+export const verifyAuthorizationIncomingHeaders = (header: IncomingHttpHeaders): Token => {
+    const bearer = header.authorization;
+    if (!bearer || !bearer.startsWith("Bearer ")) {
+        throw new UnauthorizedError("token is undefined or not bearer token");
+    }
+    return verifyToken(bearer.split("Bearer ")[1]);
 }
 
 export const verifyAuthorizationHeader = (req: express.Request): Token => {

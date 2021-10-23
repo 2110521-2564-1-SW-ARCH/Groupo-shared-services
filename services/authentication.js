@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifyAuthorizationHeader = exports.verifyToken = exports.generateRefreshToken = exports.generateAccessToken = exports.AccessTokenExpiredError = void 0;
+exports.verifyAuthorizationHeader = exports.verifyAuthorizationIncomingHeaders = exports.verifyToken = exports.generateRefreshToken = exports.generateAccessToken = exports.AccessTokenExpiredError = void 0;
 const jsonwebtoken_1 = require("jsonwebtoken");
 const errors_1 = require("../apiutils/errors");
 class AccessTokenExpiredError extends errors_1.UnauthorizedError {
@@ -35,6 +35,14 @@ const verifyToken = (token) => {
     }
 };
 exports.verifyToken = verifyToken;
+const verifyAuthorizationIncomingHeaders = (header) => {
+    const bearer = header.authorization;
+    if (!bearer || !bearer.startsWith("Bearer ")) {
+        throw new errors_1.UnauthorizedError("token is undefined or not bearer token");
+    }
+    return (0, exports.verifyToken)(bearer.split("Bearer ")[1]);
+};
+exports.verifyAuthorizationIncomingHeaders = verifyAuthorizationIncomingHeaders;
 const verifyAuthorizationHeader = (req) => {
     const bearer = req.header("Authorization");
     if (!bearer || !bearer.startsWith("Bearer ")) {
