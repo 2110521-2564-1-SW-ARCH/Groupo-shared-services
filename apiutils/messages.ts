@@ -67,6 +67,7 @@ export interface BoardResponse {
     unAssignedMember: string[];
     groups: GroupResponse[];
     totalGroups: number;
+    totalMembers: number;
 }
 
 export interface GroupResponse {
