@@ -33,8 +33,8 @@ const getChannel = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.getChannel = getChannel;
 const publish = (queue, b) => {
-    (0, exports.getChannel)().then(channel => {
-        channel.sendToQueue(queue, b);
+    (0, exports.getChannel)().then(ch => {
+        ch.sendToQueue(queue, b);
     });
 };
 exports.publish = publish;

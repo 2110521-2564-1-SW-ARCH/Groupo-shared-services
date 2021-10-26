@@ -21,8 +21,8 @@ export const getChannel = async (): Promise<amqp.Channel> => {
 }
 
 export const publish = (queue: string, b: Buffer) => {
-    getChannel().then(channel => {
-        channel.sendToQueue(queue, b);
+    getChannel().then(ch => {
+        ch.sendToQueue(queue, b);
     })
 }
 
