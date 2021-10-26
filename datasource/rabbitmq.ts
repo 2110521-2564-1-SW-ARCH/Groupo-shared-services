@@ -6,7 +6,7 @@ export const RabbitMQQueue = "logging";
 
 let channel: amqp.Channel | null = null;
 
-const logger = lg.set("RABBITMQ_PORT", process.env.RABBITMQ_PORT).set("QUEUE", RabbitMQQueue);
+const logger = lg.set("RABBITMQ_HOST", process.env.RABBITMQ_HOST).set("RABBITMQ_PORT", process.env.RABBITMQ_PORT).set("QUEUE", RabbitMQQueue);
 
 export const getChannel = async (): Promise<amqp.Channel> => {
     if (channel === null) {
@@ -38,7 +38,7 @@ export const subscribe = (queue: string, callback: (msg: Buffer) => void) => {
 }
 
 export const initRabbitMQConnection = async (): Promise<amqp.Channel> => {
-    const conn = await amqp.connect('amqp://guest:guest@localhost:' + process.env.RABBITMQ_PORT)
+    const conn = await amqp.connect(`amqp://guest:guest@${process.env.RABBITMQ_HOST}:${process.env.RABBITMQ_PORT}`)
 
     const channel = await conn.createChannel();
     await channel.assertQueue(RabbitMQQueue);

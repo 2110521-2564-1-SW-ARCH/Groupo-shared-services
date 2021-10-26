@@ -18,7 +18,7 @@ const logger_1 = require("../services/logger");
 const client_1 = require("../grpc/client");
 exports.RabbitMQQueue = "logging";
 let channel = null;
-const logger = logger_1.logger.set("RABBITMQ_PORT", process.env.RABBITMQ_PORT).set("QUEUE", exports.RabbitMQQueue);
+const logger = logger_1.logger.set("RABBITMQ_HOST", process.env.RABBITMQ_HOST).set("RABBITMQ_PORT", process.env.RABBITMQ_PORT).set("QUEUE", exports.RabbitMQQueue);
 const getChannel = () => __awaiter(void 0, void 0, void 0, function* () {
     if (channel === null) {
         try {
@@ -50,7 +50,7 @@ const subscribe = (queue, callback) => {
 };
 exports.subscribe = subscribe;
 const initRabbitMQConnection = () => __awaiter(void 0, void 0, void 0, function* () {
-    const conn = yield amqplib_1.default.connect('amqp://guest:guest@localhost:' + process.env.RABBITMQ_PORT);
+    const conn = yield amqplib_1.default.connect(`amqp://guest:guest@${process.env.RABBITMQ_HOST}:${process.env.RABBITMQ_PORT}`);
     const channel = yield conn.createChannel();
     yield channel.assertQueue(exports.RabbitMQQueue);
     return channel;
