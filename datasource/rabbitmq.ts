@@ -27,11 +27,11 @@ export const publish = (queue: string, b: Buffer) => {
 }
 
 export const subscribe = (queue: string, callback: (msg: Buffer) => void) => {
-    getChannel().then(channel => {
-        channel.consume(queue, (msg: ConsumeMessage | null) => {
+    getChannel().then(ch => {
+        ch.consume(queue, (msg: ConsumeMessage | null) => {
             if (msg !== null) {
                 callback(msg.content);
-                channel.ack(msg);
+                ch.ack(msg);
             }
         }).then();
     })

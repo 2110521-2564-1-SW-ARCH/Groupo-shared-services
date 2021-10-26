@@ -39,11 +39,11 @@ const publish = (queue, b) => {
 };
 exports.publish = publish;
 const subscribe = (queue, callback) => {
-    (0, exports.getChannel)().then(channel => {
-        channel.consume(queue, (msg) => {
+    (0, exports.getChannel)().then(ch => {
+        ch.consume(queue, (msg) => {
             if (msg !== null) {
                 callback(msg.content);
-                channel.ack(msg);
+                ch.ack(msg);
             }
         }).then();
     });
