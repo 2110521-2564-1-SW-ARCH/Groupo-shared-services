@@ -12,14 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.initRabbitMQConnection = exports.getQueue = exports.RabbitMQQueue = void 0;
+exports.initRabbitMQConnection = exports.subscribe = exports.publish = exports.RabbitMQQueue = void 0;
 const amqplib_1 = __importDefault(require("amqplib"));
 const logger_1 = require("../services/logger");
 const client_1 = require("../grpc/client");
 exports.RabbitMQQueue = "logging";
 let channel = null;
-const getQueue = () => __awaiter(void 0, void 0, void 0, function* () {
-    const logger = logger_1.logger.set("RABBITMQ_PORT", process.env.RABBITMQ_PORT).set("QUEUE", exports.RabbitMQQueue);
+const logger = logger_1.logger.set("RABBITMQ_PORT", process.env.RABBITMQ_PORT).set("QUEUE", exports.RabbitMQQueue);
+const getChannel = () => __awaiter(void 0, void 0, void 0, function* () {
     if (channel === null) {
         try {
             channel = yield (0, exports.initRabbitMQConnection)();
@@ -31,7 +31,23 @@ const getQueue = () => __awaiter(void 0, void 0, void 0, function* () {
     }
     return channel;
 });
-exports.getQueue = getQueue;
+const publish = (queue, b) => {
+    getChannel().then(channel => {
+        channel.sendToQueue(queue, b);
+    });
+};
+exports.publish = publish;
+const subscribe = (queue, callback) => {
+    getChannel().then(channel => {
+        channel.consume(queue, (msg) => {
+            if (msg !== null) {
+                callback(msg.content);
+                channel.ack(msg);
+            }
+        }).then();
+    });
+};
+exports.subscribe = subscribe;
 const initRabbitMQConnection = () => __awaiter(void 0, void 0, void 0, function* () {
     const conn = yield amqplib_1.default.connect('amqp://guest:guest@localhost:' + process.env.RABBITMQ_PORT);
     const channel = yield conn.createChannel();

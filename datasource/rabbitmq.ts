@@ -1,4 +1,4 @@
-import amqp from "amqplib";
+import amqp, {ConsumeMessage} from "amqplib";
 import {handler as grpcHandler, logger as lg} from "../services/logger";
 import {LoggingGrpcClient} from "../grpc/client";
 
@@ -6,9 +6,10 @@ export const RabbitMQQueue = "logging";
 
 let channel: amqp.Channel | null = null;
 
-export const getQueue = async (): Promise<amqp.Channel>  => {
-    const logger = lg.set("RABBITMQ_PORT", process.env.RABBITMQ_PORT).set("QUEUE", RabbitMQQueue);
+const logger = lg.set("RABBITMQ_PORT", process.env.RABBITMQ_PORT).set("QUEUE", RabbitMQQueue);
 
+
+const getChannel = async (): Promise<amqp.Channel> => {
     if (channel === null) {
         try {
             channel = await initRabbitMQConnection();
@@ -18,6 +19,23 @@ export const getQueue = async (): Promise<amqp.Channel>  => {
         }
     }
     return channel;
+}
+
+export const publish = (queue: string, b: Buffer) => {
+    getChannel().then(channel => {
+        channel.sendToQueue(queue, b);
+    })
+}
+
+export const subscribe = (queue: string, callback: (msg: Buffer) => void) => {
+    getChannel().then(channel => {
+        channel.consume(queue, (msg: ConsumeMessage | null) => {
+            if (msg !== null) {
+                callback(msg.content);
+                channel.ack(msg);
+            }
+        }).then();
+    })
 }
 
 export const initRabbitMQConnection = async (): Promise<amqp.Channel> => {
