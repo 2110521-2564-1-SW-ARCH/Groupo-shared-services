@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.initRabbitMQConnection = exports.subscribe = exports.publish = exports.RabbitMQQueue = void 0;
+exports.initRabbitMQConnection = exports.subscribe = exports.publish = exports.getChannel = exports.RabbitMQQueue = void 0;
 const amqplib_1 = __importDefault(require("amqplib"));
 const logger_1 = require("../services/logger");
 const client_1 = require("../grpc/client");
@@ -31,14 +31,15 @@ const getChannel = () => __awaiter(void 0, void 0, void 0, function* () {
     }
     return channel;
 });
+exports.getChannel = getChannel;
 const publish = (queue, b) => {
-    getChannel().then(channel => {
+    (0, exports.getChannel)().then(channel => {
         channel.sendToQueue(queue, b);
     });
 };
 exports.publish = publish;
 const subscribe = (queue, callback) => {
-    getChannel().then(channel => {
+    (0, exports.getChannel)().then(channel => {
         channel.consume(queue, (msg) => {
             if (msg !== null) {
                 callback(msg.content);

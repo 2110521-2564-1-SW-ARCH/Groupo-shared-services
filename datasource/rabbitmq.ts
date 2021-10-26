@@ -8,8 +8,7 @@ let channel: amqp.Channel | null = null;
 
 const logger = lg.set("RABBITMQ_PORT", process.env.RABBITMQ_PORT).set("QUEUE", RabbitMQQueue);
 
-
-const getChannel = async (): Promise<amqp.Channel> => {
+export const getChannel = async (): Promise<amqp.Channel> => {
     if (channel === null) {
         try {
             channel = await initRabbitMQConnection();
