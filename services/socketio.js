@@ -15,7 +15,7 @@ const getSocketIOContext = (io, socket) => {
     const { token, boardID } = (0, exports.getSocketIOHandshakeQuery)(socket);
     try {
         const email = (0, authentication_1.verifyToken)(token).email;
-        const socketIOLogger = logger_1.logger.set("email", boardID).set("boardID", boardID);
+        const socketIOLogger = logger_1.logger.set("email", email).set("boardID", boardID).set("socketID", socket.id);
         socket.join(boardID);
         return { io, logger: socketIOLogger, roomID: boardID, boardID, email };
     }

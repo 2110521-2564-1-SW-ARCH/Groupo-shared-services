@@ -17,7 +17,7 @@ export const getSocketIOContext = (io: Server<DefaultEventsMap, DefaultEventsMap
 
     try {
         const email = verifyToken(token).email;
-        const socketIOLogger = logger.set("email", boardID).set("boardID", boardID);
+        const socketIOLogger = logger.set("email", email).set("boardID", boardID).set("socketID", socket.id);
         socket.join(boardID);
         return {io, logger: socketIOLogger, roomID: boardID, boardID, email};
     } catch (err) {
