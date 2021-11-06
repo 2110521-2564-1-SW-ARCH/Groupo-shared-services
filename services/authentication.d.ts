@@ -1,9 +1,6 @@
 import { JwtPayload } from "jsonwebtoken";
 import { UnauthorizedError } from "../apiutils/errors";
 import express from "express";
-import { Socket } from "socket.io";
-import { DefaultEventsMap } from "socket.io/dist/typed-events";
-import { SocketIOHandshakeQuery } from "../types/socketio";
 /**
  * AccessTokenExpiredError is an error that indicate the provided access token is expired
  * frontend must provide refresh token to get a new access token
@@ -55,8 +52,3 @@ export declare const verifyBearerToken: (token: string) => string;
  * @param req express request header
  */
 export declare const getAuthorizationHeader: (req: express.Request) => string;
-/**
- * get the handshake query when the socket connection is establish
- * @param socket connected socket instance
- */
-export declare const getSocketIOHandshakeQuery: (socket: Socket<DefaultEventsMap, DefaultEventsMap>) => SocketIOHandshakeQuery;

@@ -96,11 +96,3 @@ export const verifyBearerToken = (token: string): string => {
 export const getAuthorizationHeader = (req: express.Request): string => {
     return req.header("Authorization");
 };
-
-/**
- * get the handshake query when the socket connection is establish
- * @param socket connected socket instance
- */
-export const getSocketIOHandshakeQuery = (socket: Socket<DefaultEventsMap, DefaultEventsMap>): SocketIOHandshakeQuery => {
-    return socket.handshake.query as any as SocketIOHandshakeQuery;
-};

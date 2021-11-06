@@ -22,6 +22,11 @@ export interface SocketIOCtx {
     roomID: string;
 
     /**
+     * board id that the user is joined (normally it will be the same as roomID)
+     */
+    boardID: string;
+
+    /**
      * email of the user
      */
     email: string;
