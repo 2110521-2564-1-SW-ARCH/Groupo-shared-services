@@ -65,6 +65,7 @@ export interface BoardResponse {
     name: string;
     tags: TagResponse[];
     isAssign: boolean;
+    unTaggedMember: string[];
     unAssignedMember: string[];
     groups: GroupResponse[];
     totalGroups: number;
