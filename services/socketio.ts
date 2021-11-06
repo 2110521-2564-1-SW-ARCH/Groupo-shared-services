@@ -12,12 +12,13 @@ export const getSocketIOHandshakeQuery = (socket: Socket<DefaultEventsMap, Defau
     return socket.handshake.query as any as SocketIOHandshakeQuery;
 };
 
-export const getSocketIOContext = (io: Server<DefaultEventsMap, DefaultEventsMap>, socket: Socket<DefaultEventsMap, DefaultEventsMap>): SocketIOCtx | null => {
+export const getSocketIOContext = (service: string, io: Server<DefaultEventsMap, DefaultEventsMap>, socket: Socket<DefaultEventsMap, DefaultEventsMap>): SocketIOCtx | null => {
     const {token, boardID} = getSocketIOHandshakeQuery(socket);
 
     try {
         const email = verifyToken(token).email;
         const socketIOLogger = logger.set("email", boardID).set("boardID", boardID);
+        socketIOLogger.service(service);
         socket.join(boardID);
         return {io, logger: socketIOLogger, roomID: boardID, boardID, email};
     } catch (err) {
