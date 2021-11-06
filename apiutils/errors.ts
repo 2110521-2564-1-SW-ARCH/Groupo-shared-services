@@ -29,19 +29,19 @@ export class BaseAPIError extends Error {
 
 export class InternalServerError extends BaseAPIError {
     constructor(message?: string) {
-        super(StatusCodes.INTERNAL_SERVER_ERROR, message);
+        super(StatusCodes.INTERNAL_SERVER_ERROR, message || "internal error");
     }
 }
 
 export class UnauthorizedError extends BaseAPIError {
     constructor(message?: string) {
-        super(StatusCodes.UNAUTHORIZED, message);
+        super(StatusCodes.UNAUTHORIZED, message || "access denied");
     }
 }
 
 export class NotFoundError extends BaseAPIError {
     constructor(message?: string) {
-        super(StatusCodes.NOT_FOUND, message);
+        super(StatusCodes.NOT_FOUND, message || "error not found");
     }
 }
 

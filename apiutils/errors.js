@@ -37,19 +37,19 @@ class BaseAPIError extends Error {
 exports.BaseAPIError = BaseAPIError;
 class InternalServerError extends BaseAPIError {
     constructor(message) {
-        super(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR, message);
+        super(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR, message || "internal error");
     }
 }
 exports.InternalServerError = InternalServerError;
 class UnauthorizedError extends BaseAPIError {
     constructor(message) {
-        super(http_status_codes_1.StatusCodes.UNAUTHORIZED, message);
+        super(http_status_codes_1.StatusCodes.UNAUTHORIZED, message || "access denied");
     }
 }
 exports.UnauthorizedError = UnauthorizedError;
 class NotFoundError extends BaseAPIError {
     constructor(message) {
-        super(http_status_codes_1.StatusCodes.NOT_FOUND, message);
+        super(http_status_codes_1.StatusCodes.NOT_FOUND, message || "error not found");
     }
 }
 exports.NotFoundError = NotFoundError;
