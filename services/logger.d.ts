@@ -5,8 +5,8 @@ export declare class ApplicationLogger {
     private _message;
     private _fields;
     service(s: string): void;
-    traceID(s: string): ApplicationLogger;
     set(k: string, v: string): ApplicationLogger;
+    setError(v: any): ApplicationLogger;
     message(s: string): ApplicationLogger;
     proto(): ApplicationLogMessage;
     clone(): ApplicationLogger;

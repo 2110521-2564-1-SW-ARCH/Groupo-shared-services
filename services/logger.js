@@ -15,14 +15,14 @@ class ApplicationLogger {
     service(s) {
         this._service = s;
     }
-    traceID(s) {
-        const l = this.clone();
-        l._traceID = s;
-        return l;
-    }
     set(k, v) {
         const l = this.clone();
         l._fields[k] = v;
+        return l;
+    }
+    setError(v) {
+        const l = this.clone();
+        l._fields.error = v;
         return l;
     }
     message(s) {

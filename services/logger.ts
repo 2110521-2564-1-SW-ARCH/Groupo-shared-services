@@ -12,15 +12,15 @@ export class ApplicationLogger {
         this._service = s;
     }
 
-    traceID(s: string): ApplicationLogger {
-        const l = this.clone();
-        l._traceID = s;
-        return l;
-    }
-
     set(k: string, v: string): ApplicationLogger {
         const l = this.clone();
         l._fields[k] = v;
+        return l;
+    }
+
+    setError(v: any): ApplicationLogger {
+        const l = this.clone();
+        l._fields.error = v;
         return l;
     }
 
