@@ -34,7 +34,7 @@ export interface UpdateProfileRequest {
 export interface CreateBoardRequest {
     name: string;
     totalGroup: number;
-    tags: Record<string, string[]>;
+    tags: string[];
 }
 export interface CreateBoardResponse {
     boardID: string;
