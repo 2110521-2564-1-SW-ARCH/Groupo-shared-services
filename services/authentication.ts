@@ -115,6 +115,6 @@ export const getAuthorizationHeader = (req: express.Request): string => {
  * get the handshake query when the socket connection is establish
  * @param socket connected socket instance
  */
-export const getHandshakeQuery = (socket: Socket<DefaultEventsMap, DefaultEventsMap>): SocketIOHandshakeQuery => {
+export const getSocketIOHandshakeQuery = (socket: Socket<DefaultEventsMap, DefaultEventsMap>): SocketIOHandshakeQuery => {
     return socket.handshake.query as any as SocketIOHandshakeQuery;
 };

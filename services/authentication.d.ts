@@ -71,4 +71,4 @@ export declare const getAuthorizationHeader: (req: express.Request) => string;
  * get the handshake query when the socket connection is establish
  * @param socket connected socket instance
  */
-export declare const getHandshakeQuery: (socket: Socket<DefaultEventsMap, DefaultEventsMap>) => SocketIOHandshakeQuery;
+export declare const getSocketIOHandshakeQuery: (socket: Socket<DefaultEventsMap, DefaultEventsMap>) => SocketIOHandshakeQuery;

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getHandshakeQuery = exports.getAuthorizationHeader = exports.verifyBearerToken = exports.verifyToken = exports.generateRefreshToken = exports.generateAccessToken = exports.AccessTokenExpiredError = void 0;
+exports.getSocketIOHandshakeQuery = exports.getAuthorizationHeader = exports.verifyBearerToken = exports.verifyToken = exports.generateRefreshToken = exports.generateAccessToken = exports.AccessTokenExpiredError = void 0;
 const jsonwebtoken_1 = require("jsonwebtoken");
 const errors_1 = require("../apiutils/errors");
 /**
@@ -79,8 +79,8 @@ exports.getAuthorizationHeader = getAuthorizationHeader;
  * get the handshake query when the socket connection is establish
  * @param socket connected socket instance
  */
-const getHandshakeQuery = (socket) => {
+const getSocketIOHandshakeQuery = (socket) => {
     return socket.handshake.query;
 };
-exports.getHandshakeQuery = getHandshakeQuery;
+exports.getSocketIOHandshakeQuery = getSocketIOHandshakeQuery;
 //# sourceMappingURL=authentication.js.map
