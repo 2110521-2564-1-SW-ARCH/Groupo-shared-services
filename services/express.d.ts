@@ -8,5 +8,6 @@ export declare const getAuthorizationHeader: (req: express.Request) => string;
 /**
  * get express context
  * @param req express request context
+ * @param requiredAuth is required authentication
  */
-export declare const getExpressRequestContext: <T>(req: express.Request) => ExpressRequestCtx<T>;
+export declare const getExpressRequestContext: <T>(req: express.Request, requiredAuth?: boolean) => ExpressRequestCtx<T>;

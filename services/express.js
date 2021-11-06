@@ -14,13 +14,22 @@ exports.getAuthorizationHeader = getAuthorizationHeader;
 /**
  * get express context
  * @param req express request context
+ * @param requiredAuth is required authentication
  */
-const getExpressRequestContext = (req) => {
-    const bearer = (0, exports.getAuthorizationHeader)(req);
-    const token = (0, authentication_1.verifyBearerToken)(bearer);
-    const email = (0, authentication_1.verifyToken)(token).email;
-    const expressLogger = logger_1.logger.set("email", email);
-    return { email, logger: expressLogger, body: req.body };
+const getExpressRequestContext = (req, requiredAuth = true) => {
+    let email;
+    if (requiredAuth) {
+        email = (0, authentication_1.verifyToken)((0, authentication_1.verifyBearerToken)((0, exports.getAuthorizationHeader)(req))).email;
+    }
+    else {
+        try {
+            email = (0, authentication_1.verifyToken)((0, authentication_1.verifyBearerToken)((0, exports.getAuthorizationHeader)(req))).email;
+        }
+        catch (err) {
+            email = "anonymous";
+        }
+    }
+    return { email, logger: logger_1.logger.set("email", email), body: req.body };
 };
 exports.getExpressRequestContext = getExpressRequestContext;
 //# sourceMappingURL=express.js.map

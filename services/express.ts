@@ -14,11 +14,19 @@ export const getAuthorizationHeader = (req: express.Request): string => {
 /**
  * get express context
  * @param req express request context
+ * @param requiredAuth is required authentication
  */
-export const getExpressRequestContext = <T>(req: express.Request): ExpressRequestCtx<T> => {
-    const bearer = getAuthorizationHeader(req);
-    const token = verifyBearerToken(bearer);
-    const email = verifyToken(token).email;
-    const expressLogger = logger.set("email", email);
-    return {email, logger: expressLogger, body: req.body as T};
+export const getExpressRequestContext = <T>(req: express.Request, requiredAuth: boolean = true): ExpressRequestCtx<T> => {
+    let email;
+
+    if (requiredAuth) {
+        email = verifyToken(verifyBearerToken(getAuthorizationHeader(req))).email;
+    } else {
+        try {
+            email = verifyToken(verifyBearerToken(getAuthorizationHeader(req))).email;
+        } catch (err) {
+            email = "anonymous";
+        }
+    }
+    return {email, logger: logger.set("email", email), body: req.body as T};
 };
