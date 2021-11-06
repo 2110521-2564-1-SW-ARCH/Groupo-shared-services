@@ -1,9 +1,5 @@
 import {JwtPayload, sign, verify} from "jsonwebtoken";
 import {UnauthorizedError} from "../apiutils/errors";
-import express from "express";
-import {Socket} from "socket.io";
-import {DefaultEventsMap} from "socket.io/dist/typed-events";
-import {SocketIOHandshakeQuery} from "../types/socketio";
 
 /**
  * AccessTokenExpiredError is an error that indicate the provided access token is expired

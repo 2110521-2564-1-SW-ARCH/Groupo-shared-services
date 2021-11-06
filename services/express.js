@@ -20,7 +20,7 @@ const getExpressRequestContext = (req) => {
     const token = (0, authentication_1.verifyBearerToken)(bearer);
     const email = (0, authentication_1.verifyToken)(token).email;
     const expressLogger = logger_1.logger.set("email", email);
-    return { email, logger: expressLogger };
+    return { email, logger: expressLogger, body: req.body };
 };
 exports.getExpressRequestContext = getExpressRequestContext;
 //# sourceMappingURL=express.js.map

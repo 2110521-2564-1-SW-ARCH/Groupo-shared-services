@@ -1,6 +1,6 @@
 import {ApplicationLogger} from "../services/logger";
 
-export interface ExpressRequestCtx {
+export interface ExpressRequestCtx<T> {
     /**
      * express logger contains information about request
      */
@@ -10,4 +10,6 @@ export interface ExpressRequestCtx {
      * email of the user
      */
     email: string | null;
+
+    body: T;
 }
