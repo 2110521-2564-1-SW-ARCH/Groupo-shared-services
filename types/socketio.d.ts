@@ -1,5 +1,6 @@
 import { Server } from "socket.io";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
+import { ApplicationLogger } from "../services/logger";
 /**
  * SocketIOCtx contains necessary to handle socketIO event
  */
@@ -8,6 +9,10 @@ export interface SocketIOCtx {
      * socket io server
      */
     io: Server<DefaultEventsMap, DefaultEventsMap>;
+    /**
+     * socket io logger contains information about socket connection
+     */
+    logger: ApplicationLogger;
     /**
      * room id that the user is joined
      */
