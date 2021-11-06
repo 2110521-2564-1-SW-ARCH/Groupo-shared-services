@@ -88,11 +88,3 @@ export const verifyBearerToken = (token: string): string => {
 
     return token.replace("Bearer ", "");
 };
-
-/**
- * get an authorization from request header
- * @param req express request header
- */
-export const getAuthorizationHeader = (req: express.Request): string => {
-    return req.header("Authorization");
-};

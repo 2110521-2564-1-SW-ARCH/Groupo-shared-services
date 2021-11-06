@@ -11,6 +11,11 @@ const getSocketIOHandshakeQuery = (socket) => {
     return socket.handshake.query;
 };
 exports.getSocketIOHandshakeQuery = getSocketIOHandshakeQuery;
+/**
+ * get socket io context
+ * @param io socket io server
+ * @param socket connected socket
+ */
 const getSocketIOContext = (io, socket) => {
     const { token, boardID } = (0, exports.getSocketIOHandshakeQuery)(socket);
     try {

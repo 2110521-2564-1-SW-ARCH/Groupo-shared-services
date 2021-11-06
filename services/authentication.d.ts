@@ -1,6 +1,5 @@
 import { JwtPayload } from "jsonwebtoken";
 import { UnauthorizedError } from "../apiutils/errors";
-import express from "express";
 /**
  * AccessTokenExpiredError is an error that indicate the provided access token is expired
  * frontend must provide refresh token to get a new access token
@@ -47,8 +46,3 @@ export declare const verifyToken: (token: string) => Token;
  * @param token bearer token (starts with `Bearer `)
  */
 export declare const verifyBearerToken: (token: string) => string;
-/**
- * get an authorization from request header
- * @param req express request header
- */
-export declare const getAuthorizationHeader: (req: express.Request) => string;

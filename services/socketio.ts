@@ -12,6 +12,11 @@ export const getSocketIOHandshakeQuery = (socket: Socket<DefaultEventsMap, Defau
     return socket.handshake.query as any as SocketIOHandshakeQuery;
 };
 
+/**
+ * get socket io context
+ * @param io socket io server
+ * @param socket connected socket
+ */
 export const getSocketIOContext = (io: Server<DefaultEventsMap, DefaultEventsMap>, socket: Socket<DefaultEventsMap, DefaultEventsMap>): SocketIOCtx | null => {
     const {token, boardID} = getSocketIOHandshakeQuery(socket);
 
