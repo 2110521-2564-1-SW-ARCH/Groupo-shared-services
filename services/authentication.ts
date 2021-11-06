@@ -3,21 +3,7 @@ import {UnauthorizedError} from "../apiutils/errors";
 import express from "express";
 import {Socket} from "socket.io";
 import {DefaultEventsMap} from "socket.io/dist/typed-events";
-
-/**
- * HandshakeQuery is set of query parameters that provided
- */
-export interface SocketIOHandshakeQuery {
-    /**
-     * boardID is used to be a roomID of socket io architecture
-     */
-    boardID: string;
-    /**
-     * jwt token of the user that connect to socket
-     */
-    token: string;
-}
-
+import {SocketIOHandshakeQuery} from "../types/socketio";
 
 /**
  * AccessTokenExpiredError is an error that indicate the provided access token is expired
