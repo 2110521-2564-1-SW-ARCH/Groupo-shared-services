@@ -63,6 +63,7 @@ export interface BoardResponse {
     boardID: string;
     owner: string;
     name: string;
+    tags: string[];
     isAssign: boolean;
     unAssignedMember: string[];
     groups: GroupResponse[];
