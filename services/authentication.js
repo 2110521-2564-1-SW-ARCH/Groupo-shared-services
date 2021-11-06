@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifyAuthorizationHeader = exports.verifyAuthorizationIncomingHeaders = exports.verifyAuthorization = exports.verifyToken = exports.generateRefreshToken = exports.generateAccessToken = exports.AccessTokenExpiredError = void 0;
+exports.getAuthorizationHeader = exports.verifyBearerToken = exports.verifyToken = exports.generateRefreshToken = exports.generateAccessToken = exports.AccessTokenExpiredError = void 0;
 const jsonwebtoken_1 = require("jsonwebtoken");
 const errors_1 = require("../apiutils/errors");
 class AccessTokenExpiredError extends errors_1.UnauthorizedError {
@@ -35,27 +35,18 @@ const verifyToken = (token) => {
     }
 };
 exports.verifyToken = verifyToken;
-const verifyAuthorization = (authorization) => {
-    if (!authorization || !authorization.startsWith("Bearer ")) {
-        throw new errors_1.UnauthorizedError("token is undefined or not bearer token");
+const verifyBearerToken = (token) => {
+    if (!token) {
+        throw new errors_1.UnauthorizedError("token is not provided");
     }
-    return (0, exports.verifyToken)(authorization.split("Bearer ")[1]);
-};
-exports.verifyAuthorization = verifyAuthorization;
-const verifyAuthorizationIncomingHeaders = (header) => {
-    const bearer = header.authorization;
-    if (!bearer || !bearer.startsWith("Bearer ")) {
-        throw new errors_1.UnauthorizedError("token is undefined or not bearer token");
+    if (!token.startsWith("Bearer ")) {
+        throw new errors_1.UnauthorizedError("token is not starts with `Bearer `");
     }
-    return (0, exports.verifyToken)(bearer.split("Bearer ")[1]);
+    return token.replace("Bearer ", "");
 };
-exports.verifyAuthorizationIncomingHeaders = verifyAuthorizationIncomingHeaders;
-const verifyAuthorizationHeader = (req) => {
-    const bearer = req.header("Authorization");
-    if (!bearer || !bearer.startsWith("Bearer ")) {
-        throw new errors_1.UnauthorizedError("token is undefined or not bearer token");
-    }
-    return (0, exports.verifyToken)(bearer.split("Bearer ")[1]);
+exports.verifyBearerToken = verifyBearerToken;
+const getAuthorizationHeader = (req) => {
+    return req.header("Authorization");
 };
-exports.verifyAuthorizationHeader = verifyAuthorizationHeader;
+exports.getAuthorizationHeader = getAuthorizationHeader;
 //# sourceMappingURL=authentication.js.map

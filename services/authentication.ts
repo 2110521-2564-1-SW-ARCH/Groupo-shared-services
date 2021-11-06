@@ -1,7 +1,6 @@
 import {JwtPayload, sign, verify} from "jsonwebtoken";
 import {UnauthorizedError} from "../apiutils/errors";
 import express from "express";
-import {IncomingHttpHeaders} from "http";
 
 export class AccessTokenExpiredError extends UnauthorizedError {
     constructor() {
@@ -19,12 +18,12 @@ export interface Token extends JwtPayload {
 export const generateAccessToken = (email: string): string => {
     const payload: Token = {email, type: "ACCESS_TOKEN"};
     return sign(payload, process.env.JWT_SECRET, {expiresIn: "1h"});
-}
+};
 
 export const generateRefreshToken = (email: string): string => {
     const payload: Token = {email, type: "REFRESH_TOKEN"};
     return sign(payload, process.env.JWT_SECRET);
-}
+};
 
 export const verifyToken = (token: string): Token => {
     try {
@@ -39,27 +38,20 @@ export const verifyToken = (token: string): Token => {
         }
         throw e;
     }
-}
+};
 
-export const verifyAuthorization = (authorization: string): Token => {
-    if (!authorization || !authorization.startsWith("Bearer ")) {
-        throw new UnauthorizedError("token is undefined or not bearer token");
+export const verifyBearerToken = (token: string): string => {
+    if (!token) {
+        throw new UnauthorizedError("token is not provided");
     }
-    return verifyToken(authorization.split("Bearer ")[1]);
-}
 
-export const verifyAuthorizationIncomingHeaders = (header: IncomingHttpHeaders): Token => {
-    const bearer = header.authorization;
-    if (!bearer || !bearer.startsWith("Bearer ")) {
-        throw new UnauthorizedError("token is undefined or not bearer token");
+    if (!token.startsWith("Bearer ")) {
+        throw new UnauthorizedError("token is not starts with `Bearer `");
     }
-    return verifyToken(bearer.split("Bearer ")[1]);
-}
 
-export const verifyAuthorizationHeader = (req: express.Request): Token => {
-    const bearer = req.header("Authorization");
-    if (!bearer || !bearer.startsWith("Bearer ")) {
-        throw new UnauthorizedError("token is undefined or not bearer token");
-    }
-    return verifyToken(bearer.split("Bearer ")[1]);
-}
+    return token.replace("Bearer ", "");
+};
+
+export const getAuthorizationHeader = (req: express.Request): string => {
+    return req.header("Authorization");
+};
