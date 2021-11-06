@@ -6,4 +6,4 @@ import { SocketIOCtx, SocketIOHandshakeQuery } from "../types/socketio";
  * @param socket connected socket instance
  */
 export declare const getSocketIOHandshakeQuery: (socket: Socket<DefaultEventsMap, DefaultEventsMap>) => SocketIOHandshakeQuery;
-export declare const getSocketIOContext: (service: string, io: Server<DefaultEventsMap, DefaultEventsMap>, socket: Socket<DefaultEventsMap, DefaultEventsMap>) => SocketIOCtx | null;
+export declare const getSocketIOContext: (io: Server<DefaultEventsMap, DefaultEventsMap>, socket: Socket<DefaultEventsMap, DefaultEventsMap>) => SocketIOCtx | null;
