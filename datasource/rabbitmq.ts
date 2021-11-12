@@ -11,20 +11,19 @@ const logger = lg.set("RABBITMQ_HOST", process.env.RABBITMQ_HOST).set("RABBITMQ_
 export const getChannel = async (): Promise<amqp.Channel> => {
     if (channel === null) {
         try {
-            channel = await initRabbitMQConnection();
-            LoggingGrpcClient.Info(logger.message("connect to rabbitmq successfully").proto(), grpcHandler)
+            return await initRabbitMQConnection();
         } catch (err) {
-            LoggingGrpcClient.Error(logger.set("error", err).message("cannot connect to rabbitmq").proto(), grpcHandler)
+            console.error("cannot init rabbitmq connection");
         }
     }
-    return channel;
-}
+    return Promise.resolve(channel);
+};
 
 export const publish = (queue: string, b: Buffer) => {
     getChannel().then(ch => {
         ch.sendToQueue(queue, b);
-    })
-}
+    });
+};
 
 export const subscribe = (queue: string, callback: (msg: Buffer) => void) => {
     getChannel().then(ch => {
@@ -34,13 +33,14 @@ export const subscribe = (queue: string, callback: (msg: Buffer) => void) => {
                 ch.ack(msg);
             }
         }).then();
-    })
-}
+    });
+};
 
 export const initRabbitMQConnection = async (): Promise<amqp.Channel> => {
-    const conn = await amqp.connect(`amqp://guest:guest@${process.env.RABBITMQ_HOST}:${process.env.RABBITMQ_PORT}`)
+    const conn = await amqp.connect(`amqp://guest:guest@${process.env.RABBITMQ_HOST}:${process.env.RABBITMQ_PORT}`);
 
-    const channel = await conn.createChannel();
-    await channel.assertQueue(RabbitMQQueue);
-    return channel;
-}
+    const ch = await conn.createChannel();
+    await ch.assertQueue(RabbitMQQueue);
+    console.info("connect to rabbitmq connection successfully");
+    return ch;
+};
