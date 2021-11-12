@@ -59,6 +59,8 @@ export interface GroupResponse {
     name: string;
     description: string;
     members: string[];
+    tags: string;
+    capacity: number;
 }
 export interface TagResponse {
     name: string;

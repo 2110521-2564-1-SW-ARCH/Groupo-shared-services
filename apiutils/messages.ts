@@ -6,12 +6,12 @@ export interface APIResponse<T> {
 }
 
 export const newAPIResponse = <T>(status: number, body: T): APIResponse<T> => {
-    return {status, body}
-}
+    return {status, body};
+};
 
 export const json = <T>(res: express.Response, response: APIResponse<T>) => {
     res.status(response.status).json(response);
-}
+};
 
 export interface LoginResponse {
     accessToken: string;
@@ -77,6 +77,8 @@ export interface GroupResponse {
     name: string;
     description: string;
     members: string[];
+    tags: string;
+    capacity: number;
 }
 
 export interface TagResponse {
