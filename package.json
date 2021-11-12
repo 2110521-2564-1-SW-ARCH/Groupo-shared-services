@@ -15,6 +15,7 @@
     "google-protobuf": "^3.18.0",
     "http-status-codes": "^2.1.4",
     "jsonwebtoken": "^8.5.1",
+    "mongodb": "^4.1.4",
     "protobufjs": "^6.11.2",
     "socket.io": "^4.3.1",
     "ts-protoc-gen": "^0.15.0",
