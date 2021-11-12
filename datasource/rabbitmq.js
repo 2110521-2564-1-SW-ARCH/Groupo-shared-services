@@ -14,20 +14,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.initRabbitMQConnection = exports.subscribe = exports.publish = exports.getChannel = exports.RabbitMQQueue = void 0;
 const amqplib_1 = __importDefault(require("amqplib"));
-const logger_1 = require("../services/logger");
 exports.RabbitMQQueue = "logging";
 let channel = null;
-const logger = logger_1.logger.set("RABBITMQ_HOST", process.env.RABBITMQ_HOST).set("RABBITMQ_PORT", process.env.RABBITMQ_PORT).set("QUEUE", exports.RabbitMQQueue);
 const getChannel = () => __awaiter(void 0, void 0, void 0, function* () {
     if (channel === null) {
         try {
-            return yield (0, exports.initRabbitMQConnection)();
+            channel = yield (0, exports.initRabbitMQConnection)();
         }
         catch (err) {
             console.error("cannot init rabbitmq connection");
         }
     }
-    return Promise.resolve(channel);
+    return channel;
 });
 exports.getChannel = getChannel;
 const publish = (queue, b) => {

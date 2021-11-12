@@ -1,22 +1,18 @@
 import amqp, {ConsumeMessage} from "amqplib";
-import {handler as grpcHandler, logger as lg} from "../services/logger";
-import {LoggingGrpcClient} from "../grpc/client";
 
 export const RabbitMQQueue = "logging";
 
 let channel: amqp.Channel | null = null;
 
-const logger = lg.set("RABBITMQ_HOST", process.env.RABBITMQ_HOST).set("RABBITMQ_PORT", process.env.RABBITMQ_PORT).set("QUEUE", RabbitMQQueue);
-
 export const getChannel = async (): Promise<amqp.Channel> => {
     if (channel === null) {
         try {
-            return await initRabbitMQConnection();
+            channel = await initRabbitMQConnection();
         } catch (err) {
             console.error("cannot init rabbitmq connection");
         }
     }
-    return Promise.resolve(channel);
+    return channel;
 };
 
 export const publish = (queue: string, b: Buffer) => {
