@@ -77,7 +77,8 @@ export interface GroupResponse {
     name: string;
     description: string;
     members: string[];
-    tags: string;
+    membersObj: any[];
+    tags: string[];
     capacity: number;
 }
 
