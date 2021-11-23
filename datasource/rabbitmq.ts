@@ -2,41 +2,29 @@ import amqp, {ConsumeMessage} from "amqplib";
 
 export const RabbitMQQueue = "logging";
 
-let channel: amqp.Channel | null = null;
+let conn: amqp.Connection | null = null;
 
-export const getChannel = async (): Promise<amqp.Channel> => {
-    if (channel === null) {
-        try {
-            channel = await initRabbitMQConnection();
-        } catch (err) {
-            console.error("cannot init rabbitmq connection");
-        }
+const getConnection = async (): Promise<amqp.Connection> => {
+    if (conn === null) {
+        conn = await amqp.connect(`amqp://guest:guest@${process.env.RABBITMQ_HOST}:${process.env.RABBITMQ_PORT}`);
+        console.info("connect to rabbitmq connection successfully");
     }
-    return channel;
+    return conn;
 };
 
-export const publish = (queue: string, b: Buffer) => {
-    getChannel().then(ch => {
-        ch.sendToQueue(queue, b);
-    });
-};
-
-export const subscribe = (queue: string, callback: (msg: Buffer) => void) => {
-    getChannel().then(ch => {
-        ch.consume(queue, (msg: ConsumeMessage | null) => {
-            if (msg !== null) {
-                callback(msg.content);
-                ch.ack(msg);
-            }
-        }).then();
-    });
-};
-
-export const initRabbitMQConnection = async (): Promise<amqp.Channel> => {
-    const conn = await amqp.connect(`amqp://guest:guest@${process.env.RABBITMQ_HOST}:${process.env.RABBITMQ_PORT}`);
-
+export const publish = async (queue: string, b: Buffer) => {
     const ch = await conn.createChannel();
     await ch.assertQueue(RabbitMQQueue);
-    console.info("connect to rabbitmq connection successfully");
-    return ch;
+    ch.sendToQueue(queue, b);
 };
+
+export const subscribe = async (queue: string, callback: (msg: Buffer) => void) => {
+    const ch = await conn.createChannel();
+    await ch.consume(queue, (msg: ConsumeMessage | null) => {
+        if (msg !== null) {
+            callback(msg.content);
+            ch.ack(msg);
+        }
+    });
+};
+

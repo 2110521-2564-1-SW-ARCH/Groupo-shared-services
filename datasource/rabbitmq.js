@@ -12,45 +12,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.initRabbitMQConnection = exports.subscribe = exports.publish = exports.getChannel = exports.RabbitMQQueue = void 0;
+exports.subscribe = exports.publish = exports.RabbitMQQueue = void 0;
 const amqplib_1 = __importDefault(require("amqplib"));
 exports.RabbitMQQueue = "logging";
-let channel = null;
-const getChannel = () => __awaiter(void 0, void 0, void 0, function* () {
-    if (channel === null) {
-        try {
-            channel = yield (0, exports.initRabbitMQConnection)();
-        }
-        catch (err) {
-            console.error("cannot init rabbitmq connection");
-        }
+let conn = null;
+const getConnection = () => __awaiter(void 0, void 0, void 0, function* () {
+    if (conn === null) {
+        conn = yield amqplib_1.default.connect(`amqp://guest:guest@${process.env.RABBITMQ_HOST}:${process.env.RABBITMQ_PORT}`);
+        console.info("connect to rabbitmq connection successfully");
     }
-    return channel;
+    return conn;
 });
-exports.getChannel = getChannel;
-const publish = (queue, b) => {
-    (0, exports.getChannel)().then(ch => {
-        ch.sendToQueue(queue, b);
-    });
-};
-exports.publish = publish;
-const subscribe = (queue, callback) => {
-    (0, exports.getChannel)().then(ch => {
-        ch.consume(queue, (msg) => {
-            if (msg !== null) {
-                callback(msg.content);
-                ch.ack(msg);
-            }
-        }).then();
-    });
-};
-exports.subscribe = subscribe;
-const initRabbitMQConnection = () => __awaiter(void 0, void 0, void 0, function* () {
-    const conn = yield amqplib_1.default.connect(`amqp://guest:guest@${process.env.RABBITMQ_HOST}:${process.env.RABBITMQ_PORT}`);
+const publish = (queue, b) => __awaiter(void 0, void 0, void 0, function* () {
     const ch = yield conn.createChannel();
     yield ch.assertQueue(exports.RabbitMQQueue);
-    console.info("connect to rabbitmq connection successfully");
-    return ch;
+    ch.sendToQueue(queue, b);
 });
-exports.initRabbitMQConnection = initRabbitMQConnection;
+exports.publish = publish;
+const subscribe = (queue, callback) => __awaiter(void 0, void 0, void 0, function* () {
+    const ch = yield conn.createChannel();
+    yield ch.consume(queue, (msg) => {
+        if (msg !== null) {
+            callback(msg.content);
+            ch.ack(msg);
+        }
+    });
+});
+exports.subscribe = subscribe;
 //# sourceMappingURL=rabbitmq.js.map
