@@ -24,13 +24,15 @@ const getConnection = () => __awaiter(void 0, void 0, void 0, function* () {
     return conn;
 });
 const publish = (queue, b) => __awaiter(void 0, void 0, void 0, function* () {
-    const ch = yield conn.createChannel();
+    const connection = yield getConnection();
+    const ch = yield connection.createChannel();
     yield ch.assertQueue(exports.RabbitMQQueue);
     ch.sendToQueue(queue, b);
 });
 exports.publish = publish;
 const subscribe = (queue, callback) => __awaiter(void 0, void 0, void 0, function* () {
-    const ch = yield conn.createChannel();
+    const connection = yield getConnection();
+    const ch = yield connection.createChannel();
     yield ch.consume(queue, (msg) => {
         if (msg !== null) {
             callback(msg.content);

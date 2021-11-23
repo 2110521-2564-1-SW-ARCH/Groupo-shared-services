@@ -13,13 +13,15 @@ const getConnection = async (): Promise<amqp.Connection> => {
 };
 
 export const publish = async (queue: string, b: Buffer) => {
-    const ch = await conn.createChannel();
+    const connection = await getConnection();
+    const ch = await connection.createChannel();
     await ch.assertQueue(RabbitMQQueue);
     ch.sendToQueue(queue, b);
 };
 
 export const subscribe = async (queue: string, callback: (msg: Buffer) => void) => {
-    const ch = await conn.createChannel();
+    const connection = await getConnection();
+    const ch = await connection.createChannel();
     await ch.consume(queue, (msg: ConsumeMessage | null) => {
         if (msg !== null) {
             callback(msg.content);
