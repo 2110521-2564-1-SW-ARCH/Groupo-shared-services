@@ -67,6 +67,7 @@ export interface BoardResponse {
     isAssign: boolean;
     unTaggedMember: string[];
     unAssignedMember: string[];
+    unAssignedMemberObj: any[];
     groups: GroupResponse[];
     totalGroups: number;
     totalMembers: number;
